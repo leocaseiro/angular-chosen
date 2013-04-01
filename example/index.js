@@ -2,7 +2,7 @@
 (function() {
   angular.module('chosenExampleApp', ['localytics.directives']).controller('IndexCtrl', [
     '$scope', '$q', '$timeout', function($scope, $q, $timeout) {
-      return $scope.optionsFromQuery = (function() {
+      $scope.optionsFromQuery = (function() {
         var deferred, fn, result;
 
         deferred = $q.defer();
@@ -13,6 +13,9 @@
         $timeout(fn, 3000);
         return deferred.promise;
       })();
+      return $scope.directiveOptions = {
+        no_results_text: "SO SORRY"
+      };
     }
   ]);
 

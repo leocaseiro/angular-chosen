@@ -6,6 +6,9 @@ AngularJS Chosen directive
 This directive brings the [Chosen](http://harvesthq.github.com/chosen/) jQuery plugin
 into AngularJS with ngModel and ngOptions integration.
 
+To use, include "localytics.directives" as a dependency in your Angular module.  You can now
+use the "chosen" directive as an attribute on any select element.
+
 Pass options into Chosen by passing an options hash into the directive, or define your options
 as attributes on the element.
 

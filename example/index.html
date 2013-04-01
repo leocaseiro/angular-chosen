@@ -32,6 +32,14 @@
     <option>I also like bunny rabbits</option>
   </select>
 
+  <h2>Passing options in as a hash: {{ woo }}</h2>
+  <select 
+    ng-model="woo" 
+    chosen="directiveOptions" 
+    ng-options="value for value in optionsFromQuery" 
+    style="width:200px;">
+  </select>
+
 </body>
 
 </html>

@@ -9,4 +9,7 @@ angular.module('chosenExampleApp', ['localytics.directives'])
     $timeout fn, 3000
     deferred.promise
 
+  $scope.directiveOptions =
+    no_results_text: "SO SORRY"
+
 ]
