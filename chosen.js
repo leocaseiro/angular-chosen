@@ -5,7 +5,7 @@
   angular.module('localytics.directives', []);
 
   angular.module('localytics.directives').directive('chosen', [
-    '$timeout', '$q', function($timeout, $q) {
+    '$timeout', function($timeout) {
       var CHOSEN_OPTION_WHITELIST, NG_OPTIONS_REGEXP, chosen, isEmpty, snakeCase;
 
       NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w\d]*)|(?:\(\s*([\$\w][\$\w\d]*)\s*,\s*([\$\w][\$\w\d]*)\s*\)))\s+in\s+(.*)$/;
