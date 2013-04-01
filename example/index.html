@@ -1,0 +1,37 @@
+<html ng-app="chosenExampleApp">
+<head>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+
+  <script src="vendor/chosen.jquery.js"></script>
+
+  <script src="../chosen.js"></script>
+  <script src="index.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="vendor/chosen.css" />
+
+</head>
+<body ng-controller="IndexCtrl">
+  <h1>Chosen Directive Example Usage</h1>
+  <h2>Chosen with a promise: {{foo}}</h2>
+  <select 
+    chosen
+    allow-single-deselect="true"
+    data-placeholder="Choose Your Own Adventure"
+    no-results-text="'Tough luck'"
+    ng-model="foo" 
+    ng-options="value for value in optionsFromQuery" 
+    style="width:200px;"></select>
+
+  <h2>Chosen with static options: {{ bar }}</h2>
+  <select chosen disable-search="true" ng-model="bar">
+    <option>Hi</option>
+    <option>This is fun</option>
+    <option>I like Chosen so much</option>
+    <option>I also like bunny rabbits</option>
+  </select>
+
+</body>
+
+</html>

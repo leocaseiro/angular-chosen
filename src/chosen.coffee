@@ -16,7 +16,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     link: (scope, element, attr, ngModel) ->
 
       # Take a hash of options from the chosen directive
-      options = scope.$eval 'chosen' or {}
+      options = scope.$eval(attr.chosen) or {}
 
       # Options defined as attributes take precedence
       angular.forEach attr, (value, key) ->
