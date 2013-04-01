@@ -17,8 +17,7 @@
       };
       return chosen = {
         restrict: 'A',
-        require: '?ngModel',
-        link: function(scope, element, attr, ngModel) {
+        link: function(scope, element, attr) {
           var match, options, valuesExpr;
 
           options = scope.$eval(attr.chosen) || {};
