@@ -2,16 +2,26 @@
 (function() {
   angular.module('chosenExampleApp', ['localytics.directives']).controller('IndexCtrl', [
     '$scope', '$q', '$timeout', function($scope, $q, $timeout) {
-      $scope.optionsFromQuery = (function() {
-        var deferred, fn, result;
+      var simulateAjax;
+
+      simulateAjax = function(result) {
+        var deferred, fn;
 
         deferred = $q.defer();
-        result = ['grooo', 'wowowowow', 'lakakalakakl', 'yadayada', 'insight', 'delve', 'synergy'];
         fn = function() {
           return deferred.resolve(result);
         };
         $timeout(fn, 3000);
         return deferred.promise;
+      };
+      $scope.optionsFromQuery = (function() {
+        var result;
+
+        result = ['grooo', 'wowowowow', 'lakakalakakl', 'yadayada', 'insight', 'delve', 'synergy'];
+        return simulateAjax(result);
+      })();
+      $scope.emptyOptions = (function() {
+        return simulateAjax([]);
       })();
       return $scope.directiveOptions = {
         no_results_text: "SO SORRY"

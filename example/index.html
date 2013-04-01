@@ -10,6 +10,7 @@
   <script src="index.js"></script>
 
   <link rel="stylesheet" type="text/css" href="vendor/chosen.css" />
+  <link rel="stylesheet" type="text/css" href="../chosen-spinner.css" />
 
 </head>
 <body ng-controller="IndexCtrl">
@@ -17,12 +18,15 @@
   <h2>Chosen with a promise: {{foo}}</h2>
   <select 
     chosen
+    multiple
     allow-single-deselect="true"
     data-placeholder="Choose Your Own Adventure"
     no-results-text="'Tough luck'"
     ng-model="foo" 
     ng-options="value for value in optionsFromQuery" 
-    style="width:200px;"></select>
+    style="width:200px;">
+    <option value=""></option>
+  </select>
 
   <h2>Chosen with static options: {{ bar }}</h2>
   <select chosen disable-search="true" ng-model="bar">
@@ -37,6 +41,14 @@
     ng-model="woo" 
     chosen="directiveOptions" 
     ng-options="value for value in optionsFromQuery" 
+    style="width:200px;">
+  </select>
+
+  <h2>Disabling the element with a message when the collection is empty:</h2>
+  <select
+    chosen
+    no-results-text="'Sorry no options for you'"
+    ng-options="value for value in emptyOptions"
     style="width:200px;">
   </select>
 

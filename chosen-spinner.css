@@ -1,0 +1,12 @@
+/* Additional styles to display a spinner image while options are loading */
+.chzn-done.loading+.chzn-container-multi .chzn-choices {
+  background-image: url('spinner.gif');
+  background-repeat: no-repeat;
+  background-position: 95%;
+}
+.chzn-done.loading+.chzn-container-single .chzn-single span {
+  background: url('spinner.gif') no-repeat right;
+}
+.chzn-done.loading+.chzn-container-single .chzn-single .search-choice-close {
+  display: none;
+}
