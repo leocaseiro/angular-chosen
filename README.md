@@ -50,11 +50,10 @@ Include chosen-spinner.css and spinner.gif to show an Ajax spinner icon while yo
 "No values available" message.  You can customize this message by passing in noResultsText in your options.
 
 ##### app.js
-    angular.module('App', ['localytics.directives'])
-      .controller('BeerCtrl', function($scope) {
-        $scope.beers = $resource('api/beers').query()
-      })
-    );
+    angular.module('App', ['ngResource', 'localytics.directives'])
+    .controller('BeerCtrl', function($scope) {
+      $scope.beers = $resource('api/beers').query()
+    });
 
 ##### index.html
     <div ng-controller="BeerCtrl">
