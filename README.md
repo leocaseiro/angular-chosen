@@ -13,7 +13,7 @@ use the "chosen" directive as an attribute on any select element.
   * Works with 'ngModel' and 'ngOptions'
   * Supports usage of promises in 'ngOptions'
   * Provides a 'loading' animation when 'ngOptions' collection is a promise backed by a remote source
-  * Pass any Chosen option as an attribute or via an object to the chosen attribute
+  * Pass options to Chosen via attributes or by passing an object to the Chosen directive
 
 # Usage
 
@@ -32,6 +32,7 @@ Similar to `$("#states").chosen()`
             data-placeholder="Pick one of these"
             disable-search="true"
             allow-single-deselect="true">
+      <option value=""></option>
       <option>This is fun</option>
       <option>I like Chosen so much</option>
       <option>I also like bunny rabbits</option>
