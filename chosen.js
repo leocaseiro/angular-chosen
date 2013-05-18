@@ -53,13 +53,20 @@
           };
           $timeout(function() {
             var chosen = element.chosen(options);
-            element.val(ngModel.$viewValue || '').trigger("liszt:updated");
+            if (ngModel)
+            {
+              element.val(ngModel.$viewValue || '').trigger("liszt:updated");  
+            }
+            
             return chosen;
           });
           
-          ngModel.$render = function() {
-            element.val(ngModel.$viewValue || '').trigger("liszt:updated");
-          };
+          if (ngModel)
+          {
+            ngModel.$render = function() {
+              element.val(ngModel.$viewValue || '').trigger("liszt:updated");
+            };
+          }
           
           if (attr.ngOptions) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
