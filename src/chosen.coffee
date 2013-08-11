@@ -6,7 +6,21 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
   NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w\d]*)|(?:\(\s*([\$\w][\$\w\d]*)\s*,\s*([\$\w][\$\w\d]*)\s*\)))\s+in\s+(.*)$/
 
   # Whitelist of options that will be parsed from the element's attributes and passed into Chosen
-  CHOSEN_OPTION_WHITELIST = ['noResultsText', 'allowSingleDeselect', 'disableSearchThreshold', 'disableSearch']
+  CHOSEN_OPTION_WHITELIST = [
+    'noResultsText'
+    'allowSingleDeselect'
+    'disableSearchThreshold'
+    'disableSearch'
+    'enableSplitWordSearch'
+    'inheritSelectClasses'
+    'maxSelectedOptions'
+    'placeholderTextMultiple'
+    'placeholderTextSingle'
+    'searchContains'
+    'singleBackstrokeDelete'
+    'displayDisabledOptions'
+    'displaySelectedOptions'
+  ]
 
   snakeCase = (input) -> input.replace /[A-Z]/g, ($1) -> "_#{$1.toLowerCase()}"
   isEmpty = (value) ->
@@ -27,11 +41,11 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       angular.forEach attr, (value, key) ->
         options[snakeCase(key)] = scope.$eval(value) if key in CHOSEN_OPTION_WHITELIST
 
-      startLoading = -> element.addClass('loading').attr('disabled', true).trigger('liszt:updated')
-      stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('liszt:updated')
+      startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
+      stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
 
       disableWithMessage = (message) ->
-        element.empty().append("<option selected>#{message}</option>").attr('disabled', true).trigger('liszt:updated')
+        element.empty().append("<option selected>#{message}</option>").attr('disabled', true).trigger('chosen:updated')
 
       # Init chosen on the next loop so ng-options can populate the select
       $timeout -> element.chosen options
