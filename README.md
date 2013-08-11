@@ -45,6 +45,8 @@ Similar to `$("#states").chosen()`
             ng-options="s for s in states">
     </select>
 
+Note: don't try to use ngModel with ngRepeat.  It won't work.  Use ngOptions.  It's better that way.
+
 ### Loading from a remote data source
 Include chosen-spinner.css and spinner.gif to show an Ajax spinner icon while your data is loading.  If the collection comes back empty, the directive will disable the element and show a default
 "No values available" message.  You can customize this message by passing in noResultsText in your options.
