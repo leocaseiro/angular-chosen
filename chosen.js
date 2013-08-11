@@ -30,7 +30,8 @@
       };
       return chosen = {
         restrict: 'A',
-        link: function(scope, element, attr) {
+        require: '?ngModel',
+        link: function(scope, element, attr, ngModel) {
           var disableWithMessage, match, options, startLoading, stopLoading, valuesExpr;
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
@@ -48,8 +49,22 @@
             return element.empty().append("<option selected>" + message + "</option>").attr('disabled', true).trigger('chosen:updated');
           };
           $timeout(function() {
-            return element.chosen(options);
+            var chosen = element.chosen(options);
+            if (ngModel)
+            {
+              element.val(ngModel.$viewValue || '').trigger("liszt:updated");  
+            }
+            
+            return chosen;
           });
+          
+          if (ngModel)
+          {
+            ngModel.$render = function() {
+              element.val(ngModel.$viewValue || '').trigger("liszt:updated");
+            };
+          }
+          
           if (attr.ngOptions) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
             valuesExpr = match[7];
