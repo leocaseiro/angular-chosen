@@ -152,7 +152,6 @@
   padding: 5px 6px;
   list-style: none;
   line-height: 15px;
-  -webkit-touch-callout: none;
 }
 .chosen-container .chosen-results li.active-result {
   display: list-item;
