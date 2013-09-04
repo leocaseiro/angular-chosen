@@ -50,7 +50,10 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       
       # Init chosen on the next loop so ng-options can populate the select
       $timeout -> element.chosen options
-
+      
+      #Watch the underlying ng-model for updates and trigger an update when they occur.
+      ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
+      
       # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
       if attr.ngOptions
         match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
@@ -63,6 +66,4 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           unless newVal is oldVal
             stopLoading()
             disableWithMessage(options.no_results_text || 'No values available') if isEmpty(newVal)
-        #Watch the underlying ng-model for updates and trigger an update when they occur.
-        ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
 ]
