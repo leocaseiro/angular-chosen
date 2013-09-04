@@ -34,7 +34,6 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     restrict: 'A',
     require: 'ngModel',
     link: (scope, element, attr, ctrl) ->
-      ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
       
       # Take a hash of options from the chosen directive
       options = scope.$eval(attr.chosen) or {}
@@ -64,4 +63,6 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           unless newVal is oldVal
             stopLoading()
             disableWithMessage(options.no_results_text || 'No values available') if isEmpty(newVal)
+        #Watch the underlying ng-model for updates and trigger an update when they occur.
+        ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
 ]
