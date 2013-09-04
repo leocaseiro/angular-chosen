@@ -31,9 +31,11 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     true
 
   chosen =
-    restrict: 'A'
-    link: (scope, element, attr) ->
-
+    restrict: 'A',
+    require: 'ngModel',
+    link: (scope, element, attr, ctrl) ->
+      ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
+      
       # Take a hash of options from the chosen directive
       options = scope.$eval(attr.chosen) or {}
 
@@ -46,7 +48,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
       disableWithMessage = (message) ->
         element.empty().append("<option selected>#{message}</option>").attr('disabled', true).trigger('chosen:updated')
-
+      
       # Init chosen on the next loop so ng-options can populate the select
       $timeout -> element.chosen options
 
