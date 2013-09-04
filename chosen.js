@@ -30,7 +30,8 @@
       };
       return chosen = {
         restrict: 'A',
-        link: function(scope, element, attr) {
+        require: 'ngModel',
+        link: function(scope, element, attr, ctrl) {
           var disableWithMessage, match, options, startLoading, stopLoading, valuesExpr;
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
@@ -50,6 +51,11 @@
           $timeout(function() {
             return element.chosen(options);
           });
+          ctrl.$render = function() {
+              return $timeout(function() {
+                return element.trigger('chosen:updated');
+              });
+            };
           if (attr.ngOptions) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
             valuesExpr = match[7];
