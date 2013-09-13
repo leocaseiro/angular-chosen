@@ -51,11 +51,13 @@
           $timeout(function() {
             return element.chosen(options);
           });
-          ctrl.$render = function() {
+          if (ctrl) {
+            ctrl.$render = function() {
               return $timeout(function() {
                 return element.trigger('chosen:updated');
               });
             };
+          }
           if (attr.ngOptions) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
             valuesExpr = match[7];
