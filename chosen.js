@@ -8,7 +8,7 @@
     '$timeout', function($timeout) {
       var CHOSEN_OPTION_WHITELIST, NG_OPTIONS_REGEXP, chosen, isEmpty, snakeCase;
       NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w\d]*)|(?:\(\s*([\$\w][\$\w\d]*)\s*,\s*([\$\w][\$\w\d]*)\s*\)))\s+in\s+(.*)$/;
-      CHOSEN_OPTION_WHITELIST = ['noResultsText', 'allowSingleDeselect', 'disableSearchThreshold', 'disableSearch', 'enableSplitWordSearch', 'inheritSelectClasses', 'maxSelectedOptions', 'placeholderTextMultiple', 'placeholderTextSingle', 'searchContains', 'singleBackstrokeDelete', 'displayDisabledOptions', 'displaySelectedOptions'];
+      CHOSEN_OPTION_WHITELIST = ['noResultsText', 'allowSingleDeselect', 'disableSearchThreshold', 'disableSearch', 'enableSplitWordSearch', 'inheritSelectClasses', 'maxSelectedOptions', 'placeholderTextMultiple', 'placeholderTextSingle', 'searchContains', 'singleBackstrokeDelete', 'displayDisabledOptions', 'displaySelectedOptions','width'];
       snakeCase = function(input) {
         return input.replace(/[A-Z]/g, function($1) {
           return "_" + ($1.toLowerCase());
@@ -30,7 +30,8 @@
       };
       return chosen = {
         restrict: 'A',
-        link: function(scope, element, attr) {
+        require: '?ngModel',
+        link: function(scope, element, attr, ctrl) {
           var disableWithMessage, match, options, startLoading, stopLoading, valuesExpr;
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
@@ -50,6 +51,13 @@
           $timeout(function() {
             return element.chosen(options);
           });
+          if (ctrl) {
+            ctrl.$render = function() {
+              return $timeout(function() {
+                return element.trigger('chosen:updated');
+              });
+            };
+          }
           if (attr.ngOptions) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
             valuesExpr = match[7];
@@ -69,5 +77,4 @@
       };
     }
   ]);
-
 }).call(this);

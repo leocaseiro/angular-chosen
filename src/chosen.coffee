@@ -20,6 +20,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     'singleBackstrokeDelete'
     'displayDisabledOptions'
     'displaySelectedOptions'
+    'width'
   ]
 
   snakeCase = (input) -> input.replace /[A-Z]/g, ($1) -> "_#{$1.toLowerCase()}"
@@ -32,8 +33,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
   chosen =
     restrict: 'A'
-    link: (scope, element, attr) ->
-
+    require: '?ngModel'
+    link: (scope, element, attr, ctrl) ->
+      
       # Take a hash of options from the chosen directive
       options = scope.$eval(attr.chosen) or {}
 
@@ -46,10 +48,14 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
       disableWithMessage = (message) ->
         element.empty().append("<option selected>#{message}</option>").attr('disabled', true).trigger('chosen:updated')
-
+      
       # Init chosen on the next loop so ng-options can populate the select
       $timeout -> element.chosen options
-
+      
+      #Watch the underlying ng-model for updates and trigger an update when they occur.
+      if ctrl
+        ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
+      
       # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
       if attr.ngOptions
         match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
