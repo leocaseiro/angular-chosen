@@ -32,8 +32,8 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     true
 
   chosen =
-    restrict: 'A',
-    require: '?ngModel',
+    restrict: 'A'
+    require: '?ngModel'
     link: (scope, element, attr, ctrl) ->
       
       # Take a hash of options from the chosen directive
