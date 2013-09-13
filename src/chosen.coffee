@@ -53,7 +53,8 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       $timeout -> element.chosen options
       
       #Watch the underlying ng-model for updates and trigger an update when they occur.
-      ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
+      if ctrl
+        ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
       
       # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
       if attr.ngOptions
