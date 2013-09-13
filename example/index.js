@@ -4,6 +4,10 @@
     '$scope', '$q', '$timeout', function($scope, $q, $timeout) {
       var simulateAjax;
 
+      $timeout(function() {
+        $scope.woo = 'insight';
+      }, 5000);
+
       simulateAjax = function(result) {
         var deferred, fn;
 
