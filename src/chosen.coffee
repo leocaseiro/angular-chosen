@@ -20,6 +20,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     'singleBackstrokeDelete'
     'displayDisabledOptions'
     'displaySelectedOptions'
+    'width'
   ]
 
   snakeCase = (input) -> input.replace /[A-Z]/g, ($1) -> "_#{$1.toLowerCase()}"
@@ -32,7 +33,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
   chosen =
     restrict: 'A',
-    require: 'ngModel',
+    require: '?ngModel',
     link: (scope, element, attr, ctrl) ->
       
       # Take a hash of options from the chosen directive
