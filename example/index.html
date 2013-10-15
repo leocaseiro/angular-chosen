@@ -16,14 +16,14 @@
 <body ng-controller="IndexCtrl">
   <h1>Chosen Directive Example Usage</h1>
   <h2>Chosen with a promise: {{foo}}</h2>
-  <select 
+  <select
     chosen
     multiple
     allow-single-deselect="true"
     data-placeholder="Choose Your Own Adventure"
     no-results-text="'Tough luck'"
-    ng-model="foo" 
-    ng-options="value for value in optionsFromQuery" 
+    ng-model="foo"
+    ng-options="value for value in optionsFromQuery"
     style="width:200px;">
     <option value=""></option>
   </select>
@@ -37,10 +37,10 @@
   </select>
 
   <h2>Passing options in as a hash: {{ woo }}</h2>
-  <select 
-    ng-model="woo" 
-    chosen="directiveOptions" 
-    ng-options="value for value in optionsFromQuery" 
+  <select
+    ng-model="woo"
+    chosen="directiveOptions"
+    ng-options="value for value in optionsFromQuery"
     style="width:200px;">
   </select>
 
@@ -49,6 +49,15 @@
     chosen
     no-results-text="'Sorry no options for you'"
     ng-options="value for value in emptyOptions"
+    style="width:200px;">
+  </select>
+
+  <h2>Changing the ngModel externally: {{ myPets }}</h2>
+  <select
+    multiple
+    ng-model="myPets"
+    ng-options="value as label for (value, label) in pets"
+    chosen
     style="width:200px;">
   </select>
 

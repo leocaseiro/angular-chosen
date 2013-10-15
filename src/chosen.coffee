@@ -1,7 +1,7 @@
 angular.module('localytics.directives', [])
 
 angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeout) ->
-  
+
   # This is stolen from Angular...
   NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w\d]*)|(?:\(\s*([\$\w][\$\w\d]*)\s*,\s*([\$\w][\$\w\d]*)\s*\)))\s+in\s+(.*)$/
 
@@ -34,8 +34,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
   chosen =
     restrict: 'A'
     require: '?ngModel'
+    terminal: true
     link: (scope, element, attr, ctrl) ->
-      
+
       # Take a hash of options from the chosen directive
       options = scope.$eval(attr.chosen) or {}
 
@@ -48,14 +49,23 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
       disableWithMessage = (message) ->
         element.empty().append("<option selected>#{message}</option>").attr('disabled', true).trigger('chosen:updated')
-      
+
       # Init chosen on the next loop so ng-options can populate the select
       $timeout -> element.chosen options
-      
+
       #Watch the underlying ng-model for updates and trigger an update when they occur.
       if ctrl
-        ctrl.$render = -> $timeout -> element.trigger('chosen:updated')
-      
+        origRender = ctrl.$render
+        ctrl.$render = ->
+          origRender()
+          element.trigger('chosen:updated')
+
+        # This is basically taken from angular ngOptions source.  ngModel watches reference, not value,
+        # so when values are added or removed from array ngModels, $render won't be fired.
+        if attr.multiple
+          viewWatch = -> ctrl.$viewValue
+          scope.$watch viewWatch, ctrl.$render, true
+
       # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
       if attr.ngOptions
         match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
@@ -64,7 +74,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         # There's no way to tell if the collection is a promise since $parse hides this from us, so just
         # assume it is a promise if undefined, and show the loader
         startLoading() if angular.isUndefined(scope.$eval(valuesExpr))
-        scope.$watch valuesExpr, (newVal, oldVal) -> 
+        scope.$watch valuesExpr, (newVal, oldVal) ->
           unless newVal is oldVal
             stopLoading()
             disableWithMessage(options.no_results_text || 'No values available') if isEmpty(newVal)

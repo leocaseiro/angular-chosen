@@ -23,9 +23,20 @@
       $scope.emptyOptions = (function() {
         return simulateAjax([]);
       })();
-      return $scope.directiveOptions = {
+      $scope.directiveOptions = {
         no_results_text: "SO SORRY"
       };
+      $scope.myPets = ['cat'];
+      $scope.pets = {
+        cat: 'Cat',
+        dog: 'Dog',
+        hamster: 'Hamster'
+      };
+      return $timeout(function() {
+        return $scope.$apply(function() {
+          return $scope.myPets.push('hamster');
+        });
+      }, 1000);
     }
   ]);
 

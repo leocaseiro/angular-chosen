@@ -18,4 +18,14 @@ angular.module('chosenExampleApp', ['localytics.directives'])
   $scope.directiveOptions =
     no_results_text: "SO SORRY"
 
+  $scope.myPets = ['cat']
+  $scope.pets =
+    cat: 'Cat'
+    dog: 'Dog'
+    hamster: 'Hamster'
+
+  $timeout ->
+    $scope.$apply -> $scope.myPets.push('hamster')
+  , 1000
+
 ]
