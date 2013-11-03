@@ -34,7 +34,7 @@
         terminal: true,
         link: function(scope, element, attr, ctrl) {
           var disableWithMessage, match, options, origRender, startLoading, stopLoading, valuesExpr, viewWatch;
-          $('window').resize(function() {
+          $(window).resize(function() {
             return element.trigger('chosen:updated');
           });
           options = scope.$eval(attr.chosen) || {};
