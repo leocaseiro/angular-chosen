@@ -74,8 +74,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         # There's no way to tell if the collection is a promise since $parse hides this from us, so just
         # assume it is a promise if undefined, and show the loader
         startLoading() if angular.isUndefined(scope.$eval(valuesExpr))
-        scope.$watch valuesExpr, (newVal, oldVal) ->
+        scope.$watchCollection valuesExpr, (newVal, oldVal) ->
           unless newVal is oldVal
             stopLoading()
             disableWithMessage(options.no_results_text || 'No values available') if isEmpty(newVal)
+
 ]
