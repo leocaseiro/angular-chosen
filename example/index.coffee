@@ -28,4 +28,6 @@ angular.module('chosenExampleApp', ['localytics.directives'])
     $scope.$apply -> $scope.myPets.push('hamster')
   , 1000
 
+  $scope.disabled = true
+
 ]

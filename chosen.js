@@ -68,6 +68,9 @@
               scope.$watch(viewWatch, ctrl.$render, true);
             }
           }
+          attr.$observe('disabled', function(value) {
+            return element.attr('disabled', value).trigger('chosen:updated');
+          });
           if (attr.ngOptions) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
             valuesExpr = match[7];
