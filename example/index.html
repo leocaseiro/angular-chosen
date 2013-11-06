@@ -61,6 +61,16 @@
     style="width:200px;">
   </select>
 
+  <h2>Disabling the selection:</h2>
+  <label for="disabled">Disabled</label>
+  <input id="disabled" type="checkbox" ng-model="disabled">
+  <br>
+  <select chosen disable-search="true" ng-model="somemodel" ng-disabled="disabled">
+    <option>Great</option>
+    <option>fun</option>
+    <option>Great fun .. indeed</option>
+  </select>
+
 </body>
 
 </html>

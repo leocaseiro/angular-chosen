@@ -47,6 +47,13 @@ Similar to `$("#states").chosen()`
 
 Note: don't try to use ngModel with ngRepeat.  It won't work.  Use ngOptions.  It's better that way.
 
+#### Works well with other AngularJS directives
+    <select chosen
+            ng-model="state"
+            ng-options="s for s in states"
+            ng-disabled="editable">
+    </select>
+
 ### Loading from a remote data source
 Include chosen-spinner.css and spinner.gif to show an Ajax spinner icon while your data is loading.  If the collection comes back empty, the directive will disable the element and show a default
 "No values available" message.  You can customize this message by passing in noResultsText in your options.
