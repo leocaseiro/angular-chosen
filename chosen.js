@@ -69,7 +69,7 @@
             }
           }
           attr.$observe('disabled', function(value) {
-            return element.attr('disabled', value).trigger('chosen:updated');
+            return element.trigger('chosen:updated');
           });
           if (attr.ngOptions) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
