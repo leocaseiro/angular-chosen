@@ -1,0 +1,20 @@
+{
+  "name": "angular-chosen-localytics",
+  "version": "0.1.0",
+  "homepage": "https://github.com/localytics/angular-chosen",
+  "description": "AngularJS Chosen directive",
+  "keywords": [
+    "chosen",
+    "select2",
+    "angularjs",
+    "promise"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "example",
+    "src",
+    "README.md",
+    "LICENSE",
+    "bower.json"
+  ]
+}
