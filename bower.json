@@ -1,0 +1,13 @@
+{
+  "name": "angular-chosen-localytics",
+  "version": "1.0.0",
+  "main": "chosen.js",
+  "ignore": [
+    "src",
+    "example"
+  ],
+  "dependencies": {
+    "chosen": "~1.0.0",
+    "angular": ">=1.0.8"
+  }
+}
