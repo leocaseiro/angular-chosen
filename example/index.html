@@ -15,7 +15,7 @@
 </head>
 <body ng-controller="IndexCtrl">
   <h1>Chosen Directive Example Usage</h1>
-  <h2>Chosen with a promise: {{foo}}</h2>
+  <h2>Chosen with a promise: {{foo | json}}</h2>
   <select
     chosen
     multiple
@@ -28,12 +28,25 @@
     <option value=""></option>
   </select>
 
+  <h2>Chosen with a promised hash: {{baz | json}}</h2>
+  <select
+    chosen
+    allow-single-deselect="true"
+    data-placeholder="Choose Your Own Adventure"
+    no-results-text="'Tough luck'"
+    ng-model="baz"
+    ng-options="value for (key,value) in optionsFromQueryAsHash"
+    style="width:200px;">
+    <option value=""></option>
+  </select>
+
   <h2>Chosen with static options: {{ bar }}</h2>
   <select chosen disable-search="true" ng-model="bar">
     <option>Hi</option>
     <option>This is fun</option>
     <option>I like Chosen so much</option>
     <option>I also like bunny rabbits</option>
+    <option value=""></option>
   </select>
 
   <h2>Passing options in as a hash: {{ woo }}</h2>
@@ -42,6 +55,7 @@
     chosen="directiveOptions"
     ng-options="value for value in optionsFromQuery"
     style="width:200px;">
+    <option value=""></option>
   </select>
 
   <h2>Disabling the element with a message when the collection is empty:</h2>
@@ -69,6 +83,7 @@
     <option>Great</option>
     <option>fun</option>
     <option>Great fun .. indeed</option>
+      <option value=""></option>
   </select>
 
 </body>

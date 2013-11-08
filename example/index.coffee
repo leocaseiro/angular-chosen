@@ -12,6 +12,12 @@ angular.module('chosenExampleApp', ['localytics.directives'])
     result = ['grooo', 'wowowowow', 'lakakalakakl', 'yadayada', 'insight', 'delve', 'synergy']
     simulateAjax(result)
 
+  $scope.optionsFromQueryAsHash = do ->
+    result =
+      win: "Brilliant Escape"
+      fail: "Untimely Demise"
+    simulateAjax(result)
+
   $scope.emptyOptions = do ->
     simulateAjax([])
 
