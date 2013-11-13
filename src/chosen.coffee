@@ -28,7 +28,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     if angular.isArray(value)
       return value.length is 0
     else if angular.isObject(value)
-      return false for key in value when value.hasOwnProperty(key)
+      return false for key of value when value.hasOwnProperty(key)
     true
 
   chosen =
