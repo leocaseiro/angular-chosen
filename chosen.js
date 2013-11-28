@@ -33,6 +33,7 @@
         terminal: true,
         link: function(scope, element, attr, ctrl) {
           var disableWithMessage, empty, match, options, origRender, removeEmptyMessage, startLoading, stopLoading, valuesExpr, viewWatch;
+          element.addClass('localytics-chosen');
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
             if (__indexOf.call(CHOSEN_OPTION_WHITELIST, key) >= 0) {

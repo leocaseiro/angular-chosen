@@ -1,6 +1,10 @@
 angular.module('chosenExampleApp', ['localytics.directives'])
 
-.controller 'IndexCtrl', ['$scope', '$q', '$timeout', ($scope, $q, $timeout) ->
+.config(['$parseProvider', ($parseProvider) ->
+  $parseProvider.unwrapPromises(true)
+])
+
+.controller('IndexCtrl', ['$scope', '$q', '$timeout', ($scope, $q, $timeout) ->
 
   simulateAjax = (result) ->
     deferred = $q.defer()
@@ -8,9 +12,8 @@ angular.module('chosenExampleApp', ['localytics.directives'])
     $timeout fn, 3000
     deferred.promise
 
-  $scope.optionsFromQuery = do ->
-    result = ['grooo', 'wowowowow', 'lakakalakakl', 'yadayada', 'insight', 'delve', 'synergy']
-    simulateAjax(result)
+  simulateAjax(['grooo', 'wowowowow', 'lakakalakakl', 'yadayada', 'insight', 'delve', 'synergy']).then (result) ->
+    $scope.optionsFromQuery = result
 
   $scope.optionsFromQueryAsHash = do ->
     result =
@@ -36,4 +39,4 @@ angular.module('chosenExampleApp', ['localytics.directives'])
 
   $scope.disabled = true
 
-]
+])
