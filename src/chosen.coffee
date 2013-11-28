@@ -3,7 +3,7 @@ angular.module('localytics.directives', [])
 angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeout) ->
 
   # This is stolen from Angular...
-  NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w\d]*)|(?:\(\s*([\$\w][\$\w\d]*)\s*,\s*([\$\w][\$\w\d]*)\s*\)))\s+in\s+(.*)$/
+  NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/
 
   # Whitelist of options that will be parsed from the element's attributes and passed into Chosen
   CHOSEN_OPTION_WHITELIST = [
@@ -47,8 +47,15 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
       stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
 
+      empty = false
+
+      removeEmptyMessage = ->
+        empty = false
+        element.find('option.empty').remove()
+
       disableWithMessage = (message) ->
-        element.empty().append("<option selected>#{message}</option>").attr('disabled', true).trigger('chosen:updated')
+        empty = true
+        element.empty().append("""<option selected class="empty">#{message}</option>""").attr('disabled', true).trigger('chosen:updated')
 
       # Init chosen on the next loop so ng-options can populate the select
       $timeout -> element.chosen options
@@ -66,9 +73,8 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           viewWatch = -> ctrl.$viewValue
           scope.$watch viewWatch, ctrl.$render, true
 
-      # Watch the disabled attribute (could be set by ngDisbaled)
-      attr.$observe 'disabled', (value) ->
-          element.trigger 'chosen:updated'
+      # Watch the disabled attribute (could be set by ngDisabled)
+      attr.$observe 'disabled', (value) -> element.trigger 'chosen:updated'
 
       # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
       if attr.ngOptions
@@ -78,8 +84,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         # There's no way to tell if the collection is a promise since $parse hides this from us, so just
         # assume it is a promise if undefined, and show the loader
         startLoading() if angular.isUndefined(scope.$eval(valuesExpr))
-        scope.$watch valuesExpr, (newVal, oldVal) ->
+        scope.$watchCollection valuesExpr, (newVal, oldVal) ->
           unless newVal is oldVal
+            removeEmptyMessage() if empty
             stopLoading()
             disableWithMessage(options.no_results_text || 'No values available') if isEmpty(newVal)
 ]
