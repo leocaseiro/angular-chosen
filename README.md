@@ -91,5 +91,8 @@ angular.module('App', ['ngResource', 'localytics.directives'])
 
 Image of select defined above in loading state:  <img src="https://raw.github.com/localytics/angular-chosen/master/example/choose-a-beer.png">
 
+Note: Assigning promises directly to scope is now deprecated in Angular 1.2+.  Assign the results of the promise to scope
+once the promise returns.  The loader animation will still work as long as the collection expression
+evaluates to `undefined` while your data is loading!
 
 See the example directory for more detailed usage.
