@@ -47,9 +47,6 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
       stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
 
-      disableWithMessage = (message) ->
-        element.empty().append("<option selected>#{message}</option>").attr('disabled', true).trigger('chosen:updated')
-
       # Init chosen on the next loop so ng-options can populate the select
       $timeout -> element.chosen options
 
@@ -78,8 +75,14 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         # There's no way to tell if the collection is a promise since $parse hides this from us, so just
         # assume it is a promise if undefined, and show the loader
         startLoading() if angular.isUndefined(scope.$eval(valuesExpr))
-        scope.$watch valuesExpr, (newVal, oldVal) ->
-          unless newVal is oldVal
-            stopLoading()
-            disableWithMessage(options.no_results_text || 'No values available') if isEmpty(newVal)
+        scope.$watchCollection valuesExpr, (newVal, oldVal) ->
+          return unless newVal?
+          stopLoading()
+          if isEmpty(newVal)
+            disableOptionElem = "<option class='disable-message' selected>#{options.no_results_text or 'No values available'}</option>"
+            element.attr('disabled', true).empty().append disableOptionElem
+          else
+            element.attr('disabled', false).find('.disable-message').remove()
+          element.trigger 'chosen:updated'
 ]
+
