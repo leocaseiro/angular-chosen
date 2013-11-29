@@ -6,7 +6,7 @@
 
   angular.module('localytics.directives').directive('chosen', [
     '$timeout', function($timeout) {
-      var CHOSEN_OPTION_WHITELIST, NG_OPTIONS_REGEXP, chosen, isEmpty, snakeCase;
+      var CHOSEN_OPTION_WHITELIST, NG_OPTIONS_REGEXP, chosen, isEmpty, nextTick, snakeCase, todoNextTick;
       NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/;
       CHOSEN_OPTION_WHITELIST = ['noResultsText', 'allowSingleDeselect', 'disableSearchThreshold', 'disableSearch', 'enableSplitWordSearch', 'inheritSelectClasses', 'maxSelectedOptions', 'placeholderTextMultiple', 'placeholderTextSingle', 'searchContains', 'singleBackstrokeDelete', 'displayDisabledOptions', 'displaySelectedOptions', 'width'];
       snakeCase = function(input) {
@@ -26,6 +26,18 @@
           }
         }
         return true;
+      };
+      todoNextTick = [];
+      nextTick = function(fn) {
+        if (todoNextTick.length === 0) {
+          $timeout(function() {
+            angular.forEach(todoNextTick, function(fn) {
+              return fn();
+            });
+            return todoNextTick = [];
+          });
+        }
+        return todoNextTick.push(fn);
       };
       return chosen = {
         restrict: 'A',
@@ -55,7 +67,7 @@
             empty = true;
             return element.empty().append("<option selected class=\"empty\">" + message + "</option>").attr('disabled', true).trigger('chosen:updated');
           };
-          $timeout(function() {
+          nextTick(function() {
             return element.chosen(options);
           });
           if (ctrl) {

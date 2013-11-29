@@ -31,6 +31,14 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       return false for key of value when value.hasOwnProperty(key)
     true
 
+  todoNextTick = []
+  nextTick = (fn) ->
+    if todoNextTick.length == 0
+      $timeout ->
+        angular.forEach todoNextTick, (fn) -> fn()
+        todoNextTick = []
+    todoNextTick.push(fn)
+
   chosen =
     restrict: 'A'
     require: '?ngModel'
@@ -38,7 +46,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     link: (scope, element, attr, ctrl) ->
 
       element.addClass('localytics-chosen')
-      
+
       # Take a hash of options from the chosen directive
       options = scope.$eval(attr.chosen) or {}
 
@@ -60,7 +68,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         element.empty().append("""<option selected class="empty">#{message}</option>""").attr('disabled', true).trigger('chosen:updated')
 
       # Init chosen on the next loop so ng-options can populate the select
-      $timeout -> element.chosen options
+      nextTick -> element.chosen options
 
       #Watch the underlying ng-model for updates and trigger an update when they occur.
       if ctrl
