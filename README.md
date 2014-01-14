@@ -9,6 +9,10 @@ into AngularJS with ngModel and ngOptions integration.
 To use, include "localytics.directives" as a dependency in your Angular module.  You can now
 use the "chosen" directive as an attribute on any select element.  Angular version 1.2+ is required.
 
+# Installation
+
+    $ bower install angular-chosen-localytics --save
+
 # Features
   * Works with `ngModel` and `ngOptions`
   * Supports usage of promises in `ngOptions`
