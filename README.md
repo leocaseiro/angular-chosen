@@ -28,8 +28,8 @@ Similar to `$("#states").chosen()`
 <select chosen multiple id="states">
   <option value="AK">Alaska</option>
   <option value="AZ">Arizona</option>
-  <option value="AR">Arkansas</option>    
-  <option value="CA">California</option>    
+  <option value="AR">Arkansas</option>
+  <option value="CA">California</option>
 </select>
 ```
 
@@ -52,12 +52,25 @@ Similar to `$("#states").chosen()`
 ```html
 <select multiple
         chosen
-        ng-model="state" 
+        ng-model="state"
         ng-options="s for s in states">
 </select>
 ```
 
 Note: don't try to use `ngModel` with `ngRepeat`.  It won't work.  Use `ngOptions`.  It's better that way.
+
+Also important: if your `ngModel` is null or undefined, you must manually include an empty option inside your `<select>`, otherwise you'll encounter strange off-by-one errors:
+
+```html
+<select multiple
+        chosen
+        ng-model="state"
+        ng-options="s for s in states">
+  <option value=""></option>
+</select>
+```
+
+This annoying behavior is alluded to in the examples in the [documentation for ngOptions](http://docs.angularjs.org/api/ng.directive:select).
 
 #### Works well with other AngularJS directives
 
@@ -87,7 +100,7 @@ angular.module('App', ['ngResource', 'localytics.directives'])
   <select chosen
           data-placeholder="Choose a beer"
           no-results-text="'Could not find any beers :('"
-          ng-model="beer" 
+          ng-model="beer"
           ng-options="b for b in beers">
   </select>
 </div>

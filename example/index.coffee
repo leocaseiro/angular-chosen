@@ -21,8 +21,8 @@ angular.module('chosenExampleApp', ['localytics.directives'])
       fail: "Untimely Demise"
     simulateAjax(result)
 
-  $scope.emptyOptions = do ->
-    simulateAjax([])
+  $scope.$watch 'emptyCollection', (empty) ->
+    $scope.emptyOptions = simulateAjax(if empty then [] else ['look', 'i', 'have', 'data'])
 
   $scope.directiveOptions =
     no_results_text: "SO SORRY"

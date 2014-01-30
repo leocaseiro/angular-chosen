@@ -31,71 +31,74 @@ angular.module('localytics.directives').directive 'chosen', ->
       return false for key of value when value.hasOwnProperty(key)
     true
 
-  chosen =
-    restrict: 'A'
-    require: '?ngModel'
-    terminal: true
-    link: (scope, element, attr, ctrl) ->
+  restrict: 'A'
+  require: '?ngModel'
+  terminal: true
+  link: (scope, element, attr, ngModel) ->
 
-      element.addClass('localytics-chosen')
+    element.addClass('localytics-chosen')
 
-      # Take a hash of options from the chosen directive
-      options = scope.$eval(attr.chosen) or {}
+    # Take a hash of options from the chosen directive
+    options = scope.$eval(attr.chosen) or {}
 
-      # Options defined as attributes take precedence
-      angular.forEach attr, (value, key) ->
-        options[snakeCase(key)] = scope.$eval(value) if key in CHOSEN_OPTION_WHITELIST
+    # Options defined as attributes take precedence
+    angular.forEach attr, (value, key) ->
+      options[snakeCase(key)] = scope.$eval(value) if key in CHOSEN_OPTION_WHITELIST
 
-      startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
-      stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
+    startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
+    stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
 
-      initialized = false
+    chosen = null
+    defaultText = null
+    empty = false
+
+    initOrUpdate = ->
+      if chosen
+        element.trigger('chosen:updated')
+      else
+        chosen = element.chosen(options).data('chosen')
+        defaultText = chosen.default_text
+
+    # Use Chosen's placeholder or no results found text depending on whether there are options available
+    removeEmptyMessage = ->
       empty = false
+      element.attr('data-placeholder', defaultText)
 
-      initOrUpdate = ->
-        if initialized
-          element.trigger('chosen:updated')
-        else
-          element.chosen options
-          initialized = true
+    disableWithMessage = ->
+      empty = true
+      element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true).trigger('chosen:updated')
 
-      removeEmptyMessage = ->
-        empty = false
-        element.find('option.empty').remove()
+    # Watch the underlying ngModel for updates and trigger an update when they occur.
+    if ngModel
+      origRender = ngModel.$render
+      ngModel.$render = ->
+        origRender()
+        initOrUpdate()
 
-      disableWithMessage = (message) ->
-        empty = true
-        element.empty().append("""<option selected class="empty">#{message}</option>""").attr('disabled', true).trigger('chosen:updated')
+      # This is basically taken from angular ngOptions source.  ngModel watches reference, not value,
+      # so when values are added or removed from array ngModels, $render won't be fired.
+      if attr.multiple
+        viewWatch = -> ngModel.$viewValue
+        scope.$watch viewWatch, ngModel.$render, true
+    # If we're not using ngModel (and therefore also not using ngOptions, which requires ngModel),
+    # just initialize chosen immediately since there's no need to wait for ngOptions to render first
+    else initOrUpdate()
 
-      # Watch the underlying ngModel for updates and trigger an update when they occur.
-      if ctrl
-        origRender = ctrl.$render
-        ctrl.$render = ->
-          origRender()
-          initOrUpdate()
+    # Watch the disabled attribute (could be set by ngDisabled)
+    attr.$observe 'disabled', initOrUpdate
 
-        # This is basically taken from angular ngOptions source.  ngModel watches reference, not value,
-        # so when values are added or removed from array ngModels, $render won't be fired.
-        if attr.multiple
-          viewWatch = -> ctrl.$viewValue
-          scope.$watch viewWatch, ctrl.$render, true
-      # If we're not using ngModel (and therefore also not using ngOptions, which requires ngModel),
-      # just initialize chosen immediately since there's no need to wait for ngOptions to render first
-      else initOrUpdate()
+    # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
+    # ngOptions doesn't do anything unless there is an ngModel, so neither do we.
+    if attr.ngOptions and ngModel
+      match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
+      valuesExpr = match[7]
 
-      # Watch the disabled attribute (could be set by ngDisabled)
-      attr.$observe 'disabled', (value) -> element.trigger 'chosen:updated'
-
-      # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
-      if attr.ngOptions
-        match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
-        valuesExpr = match[7]
-
+      scope.$watchCollection valuesExpr, (newVal, oldVal) ->
         # There's no way to tell if the collection is a promise since $parse hides this from us, so just
         # assume it is a promise if undefined, and show the loader
-        startLoading() if angular.isUndefined(scope.$eval(valuesExpr))
-        scope.$watchCollection valuesExpr, (newVal, oldVal) ->
-          unless newVal is oldVal
-            removeEmptyMessage() if empty
-            stopLoading()
-            disableWithMessage(options.no_results_text || 'No values available') if isEmpty(newVal)
+        if angular.isUndefined(newVal)
+          startLoading()
+        else
+          removeEmptyMessage() if empty
+          stopLoading()
+          disableWithMessage() if isEmpty(newVal)
