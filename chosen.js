@@ -82,7 +82,9 @@
         } else {
           initOrUpdate();
         }
-        attr.$observe('disabled', initOrUpdate);
+        attr.$observe('disabled', function() {
+          return element.trigger('chosen:updated');
+        });
         if (attr.ngOptions && ngModel) {
           match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
           valuesExpr = match[7];

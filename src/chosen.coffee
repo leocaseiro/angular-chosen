@@ -85,7 +85,7 @@ angular.module('localytics.directives').directive 'chosen', ->
     else initOrUpdate()
 
     # Watch the disabled attribute (could be set by ngDisabled)
-    attr.$observe 'disabled', initOrUpdate
+    attr.$observe 'disabled', -> element.trigger('chosen:updated')
 
     # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
     # ngOptions doesn't do anything unless there is an ngModel, so neither do we.
