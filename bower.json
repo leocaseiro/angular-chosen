@@ -1,6 +1,6 @@
 {
   "name": "angular-chosen-localytics",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "chosen.js",
   "ignore": [
     "src",
