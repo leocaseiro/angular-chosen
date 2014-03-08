@@ -46,6 +46,7 @@ Similar to `$("#states").chosen()`
   <option>I also like bunny rabbits</option>
 </select>
 ```
+Note: the empty option element is mandatory when using `allow-single-deselect`
 
 ### Integration with `ngModel` and `ngOptions`
 
