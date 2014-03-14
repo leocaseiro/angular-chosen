@@ -7,7 +7,7 @@
     "example"
   ],
   "dependencies": {
-    "chosen": "~1.0.0",
+    "chosen": "https://github.com/harvesthq/chosen/releases/download/1.0.0/chosen_v1.0.0.zip",
     "angular": ">=1.2.0"
   }
 }
