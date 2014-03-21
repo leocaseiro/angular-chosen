@@ -46,7 +46,14 @@ angular.module('localytics.directives').directive 'chosen', ->
       options[snakeCase(key)] = scope.$eval(value) if key in CHOSEN_OPTION_WHITELIST
 
     startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
-    stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
+
+    stopLoading = ->
+      element.removeClass('loading')
+      if angular.isDefined attr.disabled
+        element.attr 'disabled', attr.disabled
+      else
+        element.attr 'disabled', false
+      element.trigger('chosen:updated')
 
     chosen = null
     defaultText = null
