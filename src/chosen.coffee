@@ -93,7 +93,7 @@ angular.module('localytics.directives').directive 'chosen', ->
       match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
       valuesExpr = match[7]
 
-      scope.$watchCollection valuesExpr, (newVal, oldVal) ->
+      scope.$watch valuesExpr, (newVal, oldVal) ->
         # There's no way to tell if the collection is a promise since $parse hides this from us, so just
         # assume it is a promise if undefined, and show the loader
         if angular.isUndefined(newVal)
@@ -102,3 +102,4 @@ angular.module('localytics.directives').directive 'chosen', ->
           removeEmptyMessage() if empty
           stopLoading()
           disableWithMessage() if isEmpty(newVal)
+      , true
