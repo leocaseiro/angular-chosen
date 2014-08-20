@@ -3,7 +3,8 @@ angular.module('localytics.directives', [])
 angular.module('localytics.directives').directive 'chosen', ->
 
   # This is stolen from Angular...
-  NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/
+  NG_OPTIONS_REGEXP =  /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/
+     
 
   # Whitelist of options that will be parsed from the element's attributes and passed into Chosen
   CHOSEN_OPTION_WHITELIST = [
