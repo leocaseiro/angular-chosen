@@ -7,7 +7,7 @@
     "example"
   ],
   "dependencies": {
-    "chosen-build": "https://github.com/mvrkljan/chosen-build",
+    "chosen-build": "https://github.com/mvrkljan/chosen-build.git#master",
     "angular": ">=1.2.0"
   }
 }
