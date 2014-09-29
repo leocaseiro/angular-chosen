@@ -57,7 +57,8 @@ angular.module('localytics.directives').directive 'chosen', ->
         element.trigger('chosen:updated')
       else
         chosen = element.chosen(options).data('chosen')
-        defaultText = chosen.default_text
+        if angular.isObject(chosen)
+          defaultText = chosen.default_text
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     removeEmptyMessage = ->

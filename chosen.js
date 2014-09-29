@@ -56,7 +56,9 @@
             return element.trigger('chosen:updated');
           } else {
             chosen = element.chosen(options).data('chosen');
-            return defaultText = chosen.default_text;
+            if (angular.isObject(chosen)) {
+              return defaultText = chosen.default_text;
+            }
           }
         };
         removeEmptyMessage = function() {
