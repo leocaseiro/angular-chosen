@@ -35,6 +35,7 @@ angular.module('localytics.directives').directive 'chosen', ->
   require: '?ngModel'
   terminal: true
   link: (scope, element, attr, ngModel) ->
+    element = $ element # Use real JQuery if it wasn't loaded before Angular.
 
     element.addClass('localytics-chosen')
 
