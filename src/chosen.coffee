@@ -100,5 +100,5 @@ angular.module('localytics.directives').directive 'chosen', ->
           startLoading()
         else
           removeEmptyMessage() if empty
-          stopLoading()
-          disableWithMessage() if isEmpty(newVal)
+          scope.$$postDigest(stopLoading)
+          scope.$$postDigest(disableWithMessage) if isEmpty(newVal)
