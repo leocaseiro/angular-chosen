@@ -88,7 +88,7 @@
         if (attr.ngOptions && ngModel) {
           match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
           valuesExpr = match[7];
-          return scope.$watchCollection(valuesExpr, function(newVal, oldVal) {
+          return scope.$watch(valuesExpr, function(newVal, oldVal) {
             if (angular.isUndefined(newVal)) {
               return startLoading();
             } else {
@@ -100,7 +100,7 @@
                 return disableWithMessage();
               }
             }
-          });
+          }, true);
         }
       }
     };
