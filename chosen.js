@@ -4,7 +4,7 @@
 
   angular.module('localytics.directives', []);
 
-  angular.module('localytics.directives').directive('chosen', function() {
+  angular.module('localytics.directives').directive('chosen', ['$timeout', function($timeout) {
     var CHOSEN_OPTION_WHITELIST, NG_OPTIONS_REGEXP, isEmpty, snakeCase;
 
     NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/;
@@ -89,21 +89,24 @@
           match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
           valuesExpr = match[7];
           return scope.$watchCollection(valuesExpr, function(newVal, oldVal) {
-            if (angular.isUndefined(newVal)) {
-              return startLoading();
-            } else {
-              if (empty) {
-                removeEmptyMessage();
+
+            $timeout(function() {
+              if (angular.isUndefined(newVal)) {
+                return startLoading();
+              } else {
+                if (empty) {
+                  removeEmptyMessage();
+                }
+                stopLoading();
+                if (isEmpty(newVal)) {
+                  return disableWithMessage();
+                }
               }
-              stopLoading();
-              if (isEmpty(newVal)) {
-                return disableWithMessage();
-              }
-            }
+            });
           });
         }
       }
     };
-  });
+  }]);
 
 }).call(this);
