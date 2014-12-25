@@ -94,15 +94,15 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       valuesExpr = match[7]
 
       scope.$watchCollection valuesExpr, (newVal, oldVal) ->
-      	# Defer execution until DOM is loaded
-      	$timeout(() ->
-	        # There's no way to tell if the collection is a promise since $parse hides this from us, so just
-	        # assume it is a promise if undefined, and show the loader
-	        if angular.isUndefined(newVal)
-	          startLoading()
-	        else
-	          removeEmptyMessage() if empty
-	          stopLoading()
-	          disableWithMessage() if isEmpty(newVal)
-	    )
+      # Defer execution until DOM is loaded
+      $timeout(() ->
+        # There's no way to tell if the collection is a promise since $parse hides this from us, so just
+        # assume it is a promise if undefined, and show the loader
+        if angular.isUndefined(newVal)
+          startLoading()
+        else
+          removeEmptyMessage() if empty
+          stopLoading()
+          disableWithMessage() if isEmpty(newVal)
+      )
 ]
