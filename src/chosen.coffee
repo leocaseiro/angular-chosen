@@ -35,7 +35,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
   require: '?ngModel'
   terminal: true
   link: (scope, element, attr, ngModel) ->
-
+    scope.disabledValuesHistory = if scope.disabledValuesHistory then scope.disabledValuesHistory else []
     element.addClass('localytics-chosen')
 
     # Take a hash of options from the chosen directive
@@ -45,8 +45,24 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     angular.forEach attr, (value, key) ->
       options[snakeCase(key)] = scope.$eval(value) if key in CHOSEN_OPTION_WHITELIST
 
-    startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
-    stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
+    startLoading = ->
+      disabledValueOfElement = {}
+      elementAlreadyExists = false
+      angular.forEach scope.disabledValuesHistory, (data) ->
+        if data.hasOwnProperty(element.context.id)
+          data[element.context.id] = element.context.disabled
+          elementAlreadyExists = true
+        return
+      if !elementAlreadyExists
+        disabledValueOfElement[element.context.id] = element.context.disabled
+        scope.disabledValuesHistory.push disabledValueOfElement
+      element.addClass('loading').attr('disabled', true).trigger 'chosen:updated'
+    stopLoading = ->
+      disabledValue = false
+      angular.forEach scope.disabledValuesHistory, (data) ->
+        disabledValue = if data.hasOwnProperty(element.context.id) then data[element.context.id] else disabledValue
+        return
+      element.removeClass('loading').attr('disabled', disabledValue).trigger 'chosen:updated'
 
     chosen = null
     defaultText = null
