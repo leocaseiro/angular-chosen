@@ -93,7 +93,7 @@ Include chosen-spinner.css and spinner.gif to show an Ajax spinner icon while yo
 ##### app.js
 ```js
 angular.module('App', ['ngResource', 'localytics.directives'])
-.controller('BeerCtrl', function($scope) {
+.controller('BeerCtrl', function($scope,$resource) {
   $scope.beers = $resource('api/beers').query()
 });
 ```
