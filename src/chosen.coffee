@@ -101,7 +101,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           else
             removeEmptyMessage() if empty
             stopLoading()
-            disableWithMessage() if isEmpty(newVal)
+            disableWithMessage() if isEmpty(newVal) and !attr.allowEmptyResultsList
         )
 
       scope.$on '$destroy', (event) ->

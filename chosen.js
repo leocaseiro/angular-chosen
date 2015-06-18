@@ -96,7 +96,7 @@
                     removeEmptyMessage();
                   }
                   stopLoading();
-                  if (isEmpty(newVal)) {
+                  if (isEmpty(newVal) && !attr.allowEmptyResultsList) {
                     return disableWithMessage();
                   }
                 }
