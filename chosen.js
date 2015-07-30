@@ -37,6 +37,9 @@
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
             if (__indexOf.call(CHOSEN_OPTION_WHITELIST, key) >= 0) {
+              attr.$observe(key, function(value) {
+                return options[snakeCase(key)] = scope.$eval(value);
+              });
               return options[snakeCase(key)] = scope.$eval(value);
             }
           });
