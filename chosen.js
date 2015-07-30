@@ -32,13 +32,15 @@
         require: '?ngModel',
         terminal: true,
         link: function(scope, element, attr, ngModel) {
-          var chosen, defaultText, disableWithMessage, empty, initOrUpdate, match, options, origRender, removeEmptyMessage, startLoading, stopLoading, valuesExpr, viewWatch;
+          var chosen, empty, initOrUpdate, match, options, origRender, startLoading, stopLoading, updateMessage, valuesExpr, viewWatch;
           element.addClass('localytics-chosen');
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
             if (__indexOf.call(CHOSEN_OPTION_WHITELIST, key) >= 0) {
               attr.$observe(key, function(value) {
-                return options[snakeCase(key)] = scope.$eval(value);
+                options[snakeCase(key)] = scope.$eval(value);
+                chosen.set_default_text();
+                return updateMessage();
               });
               return options[snakeCase(key)] = scope.$eval(value);
             }
@@ -50,23 +52,21 @@
             return element.removeClass('loading').attr('disabled', false).trigger('chosen:updated');
           };
           chosen = null;
-          defaultText = null;
           empty = false;
           initOrUpdate = function() {
             if (chosen) {
               return element.trigger('chosen:updated');
             } else {
-              chosen = element.chosen(options).data('chosen');
-              return defaultText = chosen.default_text;
+              return chosen = element.chosen(options).data('chosen');
             }
           };
-          removeEmptyMessage = function() {
-            empty = false;
-            return element.attr('data-placeholder', defaultText);
-          };
-          disableWithMessage = function() {
-            empty = true;
-            return element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true).trigger('chosen:updated');
+          updateMessage = function() {
+            if (empty) {
+              element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true);
+            } else {
+              element.removeAttr('data-placeholder');
+            }
+            return element.trigger('chosen:updated');
           };
           if (ngModel) {
             origRender = ngModel.$render;
@@ -95,13 +95,9 @@
                 if (angular.isUndefined(newVal)) {
                   return startLoading();
                 } else {
-                  if (empty) {
-                    removeEmptyMessage();
-                  }
+                  empty = isEmpty(newVal);
                   stopLoading();
-                  if (isEmpty(newVal)) {
-                    return disableWithMessage();
-                  }
+                  return updateMessage();
                 }
               });
             });
