@@ -71,6 +71,7 @@
 
   <h2>Changing the ngModel externally: {{ myPets }}</h2>
   <select
+    ng-disabled="disabled"
     multiple
     ng-model="myPets"
     ng-options="value as label for (value, label) in pets"

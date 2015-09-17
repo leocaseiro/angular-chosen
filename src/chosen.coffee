@@ -34,6 +34,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
   restrict: 'A'
   require: '?ngModel'
   terminal: true
+  scope: {
+    disabled: '=ngDisabled' 
+  }
   link: (scope, element, attr, ngModel) ->
 
     element.addClass('localytics-chosen')
@@ -46,7 +49,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       options[snakeCase(key)] = scope.$eval(value) if key in CHOSEN_OPTION_WHITELIST
 
     startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
-    stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
+    stopLoading = -> element.removeClass('loading').attr('disabled', !!scope.disabled).trigger('chosen:updated')
 
     chosen = null
     defaultText = null
