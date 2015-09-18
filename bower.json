@@ -7,7 +7,7 @@
     "example"
   ],
   "dependencies": {
-    "chosen": "https://17a2e156becefb8d6da7808cceaeac6c16514671:x-oauth-basic@github.com/MediaMath/chosen.git#placebo",
+    "chosen": "https://17a2e156becefb8d6da7808cceaeac6c16514671:x-oauth-basic@github.com/MediaMath/chosen.git#master",
     "angular": ">=1.2.0"
   }
 }
