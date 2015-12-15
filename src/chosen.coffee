@@ -57,7 +57,8 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         element.trigger('chosen:updated')
       else
         chosen = element.chosen(options).data('chosen')
-        defaultText = chosen.default_text
+        defaultText = if chosen then chosen.default_text else ''
+        defaultText
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     removeEmptyMessage = ->
@@ -65,6 +66,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       element.attr('data-placeholder', defaultText)
 
     disableWithMessage = ->
+      return unless chosen
       empty = true
       element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true).trigger('chosen:updated')
 
