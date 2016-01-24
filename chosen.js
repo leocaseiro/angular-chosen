@@ -66,11 +66,7 @@
             return element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true).trigger('chosen:updated');
           };
           if (ngModel) {
-            origRender = ngModel.$render;
-            ngModel.$render = function() {
-              origRender();
-              return initOrUpdate();
-            };
+            initOrUpdate();
             if (attr.multiple) {
               viewWatch = function() {
                 return ngModel.$viewValue;
