@@ -33,7 +33,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
   restrict: 'A'
   require: '?ngModel'
-  terminal: true
+  priority: 1,
   link: (scope, element, attr, ngModel) ->
 
     element.addClass('localytics-chosen')
@@ -70,7 +70,10 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
     # Watch the underlying ngModel for updates and trigger an update when they occur.
     if ngModel
-      initOrUpdate()
+      origRender = ngModel.$render
+      ngModel.$render = ->
+        origRender()
+        initOrUpdate()
 
       # This is basically taken from angular ngOptions source.  ngModel watches reference, not value,
       # so when values are added or removed from array ngModels, $render won't be fired.
