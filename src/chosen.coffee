@@ -77,7 +77,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
       # This is basically taken from angular ngOptions source.  ngModel watches reference, not value,
       # so when values are added or removed from array ngModels, $render won't be fired.
-      if attr.multiple
+      //if attr.multiple
         viewWatch = -> ngModel.$viewValue
         scope.$watch viewWatch, ngModel.$render, true
     # If we're not using ngModel (and therefore also not using ngOptions, which requires ngModel),
