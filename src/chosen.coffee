@@ -33,7 +33,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
   restrict: 'A'
   require: '?ngModel'
-  terminal: true
+  priority: 1
   link: (scope, element, attr, ngModel) ->
 
     element.addClass('localytics-chosen')

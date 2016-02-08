@@ -30,7 +30,7 @@
       return {
         restrict: 'A',
         require: '?ngModel',
-        terminal: true,
+        priority: 1,
         link: function(scope, element, attr, ngModel) {
           var chosen, empty, initOrUpdate, match, options, origRender, startLoading, stopLoading, updateMessage, valuesExpr, viewWatch;
           element.addClass('localytics-chosen');
