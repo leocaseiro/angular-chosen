@@ -43,7 +43,8 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
     # Options defined as attributes take precedence
     angular.forEach attr, (value, key) ->
-      options[snakeCase(key)] = scope.$eval(value) if key in CHOSEN_OPTION_WHITELIST
+      if key in CHOSEN_OPTION_WHITELIST
+        options[snakeCase(key)] = if String(element.attr(attr.$attr[key])).slice(0, 2) is '{{' then value else scope.$eval(value)
 
     startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
     stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
