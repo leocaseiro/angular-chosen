@@ -1,13 +1,20 @@
 {
   "name": "angular-chosen-localytics",
   "version": "1.0.8",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leocaseiro/angular-chosen.git"
+  },
   "main": "chosen.js",
   "ignore": [
+    "LICENSE",
     "src",
-    "example"
+    "example",
+    "*.md"
   ],
   "dependencies": {
-    "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip",
-    "angular": ">=1.2.0"
-  }
+    "chosen": "1.1.0",
+    "angular": "^1.2.0"
+  },
+  "license": "MIT"
 }
