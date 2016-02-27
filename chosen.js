@@ -33,6 +33,7 @@
         priority: 1,
         link: function(scope, element, attr, ngModel) {
           var chosen, defaultText, disableWithMessage, empty, initOrUpdate, match, options, origRender, removeEmptyMessage, startLoading, stopLoading, valuesExpr, viewWatch;
+          scope.disabledValuesHistory = scope.disabledValuesHistory ? scope.disabledValuesHistory : [];
           element.addClass('localytics-chosen');
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
@@ -41,10 +42,28 @@
             }
           });
           startLoading = function() {
+            var disabledValueOfElement, elementAlreadyExists;
+            disabledValueOfElement = {};
+            elementAlreadyExists = false;
+            angular.forEach(scope.disabledValuesHistory, function(data) {
+              if (data.hasOwnProperty(element.context.id)) {
+                data[element.context.id] = element.context.disabled;
+                elementAlreadyExists = true;
+              }
+            });
+            if (!elementAlreadyExists) {
+              disabledValueOfElement[element.context.id] = element.context.disabled;
+              scope.disabledValuesHistory.push(disabledValueOfElement);
+            }
             return element.addClass('loading').attr('disabled', true).trigger('chosen:updated');
           };
           stopLoading = function() {
-            return element.removeClass('loading').attr('disabled', false).trigger('chosen:updated');
+            var disabledValue;
+            disabledValue = false;
+            angular.forEach(scope.disabledValuesHistory, function(data) {
+              disabledValue = data.hasOwnProperty(element.context.id) ? data[element.context.id] : disabledValue;
+            });
+            return element.removeClass('loading').attr('disabled', disabledValue).trigger('chosen:updated');
           };
           chosen = null;
           defaultText = null;
