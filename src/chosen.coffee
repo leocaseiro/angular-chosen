@@ -47,7 +47,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         options[snakeCase(key)] = if String(element.attr(attr.$attr[key])).slice(0, 2) is '{{' then value else scope.$eval(value)
 
     startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
-    stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
+    stopLoading = -> element.removeClass('loading').attr('disabled', !!scope.$eval(attr.ngDisabled)).trigger('chosen:updated')
 
     chosen = null
     defaultText = null
