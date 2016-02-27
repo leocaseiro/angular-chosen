@@ -59,7 +59,7 @@
           };
           removeEmptyMessage = function() {
             empty = false;
-            return element.attr('data-placeholder', defaultText);
+            return element.attr('data-placeholder', defaultText).trigger('chosen:updated');
           };
           disableWithMessage = function() {
             empty = true;
