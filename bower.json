@@ -6,12 +6,6 @@
     "url": "git://github.com/leocaseiro/angular-chosen.git"
   },
   "main": "chosen.js",
-  "ignore": [
-    "LICENSE",
-    "src",
-    "example",
-    "*.md"
-  ],
   "dependencies": {
     "chosen": "^1.1.0",
     "angular": "^1.2.0"
