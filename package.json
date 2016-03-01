@@ -1,0 +1,49 @@
+{
+  "name": "angular-chosen-localytics",
+  "filename": "chosen.js",
+  "version": "1.1.0",
+  "description": "Angular Chosen directive is an AngularJS Directive that brings the Chosen jQuery in a Angular way",
+  "homepage": "http://github.com/leocaseiro/angular-chosen",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leocaseiro/angular-chosen"
+  },
+  "keywords": [
+    "angularjs",
+    "select",
+    "multiselect",
+    "dropdown",
+    "form",
+    "input",
+    "ui"
+  ],
+  "license": "MIT",
+  "author": "jr314159",
+  "contributors": [
+    "LukeMason",
+    "leocaseiro",
+    "stefanvermaas",
+    "abuggia",
+    "gaui",
+    "paulpflug",
+    "iamnewspecies",
+    "kfarst",
+    "dariusriggins",
+    "charandas",
+    "failpunk",
+    "simison",
+    "ilychkov",
+    "darlanalves",
+    "dougludlow",
+    "Odi55555",
+    "slobo"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "chosen": "~1.1.0",
+    "angular": "~1.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/leocaseiro/angular-chosen/issues"
+  }
+}
