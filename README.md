@@ -1,4 +1,4 @@
-angular-chosen
+Angular Chosen Localytics [![Bower](https://img.shields.io/bower/v/angular-chosen-localytics.svg)](https://github.com/leocaseiro/angular-chosen)
 ==============
 
 AngularJS Chosen directive
