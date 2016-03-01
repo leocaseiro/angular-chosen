@@ -41,7 +41,7 @@ gulp.task('build-coffee-script', function() {
     return gulp.src(config.src + '/*.coffee')
         .pipe($.if(args.debug, $.debug()))
         .pipe($.plumber())
-    	.pipe($.coffee({bare: true}).on('error', $.util.log))
+    	.pipe($.coffee().on('error', $.util.log))
     	.pipe($.rename(config.file + '.js'))
         .pipe($.header(banner, { pkg : pkg }))
     	.pipe(gulp.dest(config.dist));
