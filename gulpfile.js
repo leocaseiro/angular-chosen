@@ -77,6 +77,6 @@ gulp.task('build-clean-javascripts', function() {
 /**
  * Watch files and compile Coffee Script in real-time
  */
-gulp.task('watcher', ['minify'], function() {
-    gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['minify']);
+gulp.task('watcher', ['build-minify'], function() {
+    gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['build-minify']);
 });
