@@ -1,12 +1,13 @@
 {
   "name": "angular-chosen-localytics",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/leocaseiro/angular-chosen.git"
   },
-  "main": "dist/angular-chosen.js",
+  "main": "dist/angular-chosen.min.js",
   "dependencies": {
+    "jquery": "^2.0.3",
     "chosen": "^1.1.0",
     "angular": "^1.2.0"
   },
