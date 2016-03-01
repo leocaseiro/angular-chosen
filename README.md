@@ -9,7 +9,11 @@ into AngularJS with ngModel and ngOptions integration.
 To use, include "localytics.directives" as a dependency in your Angular module.  You can now
 use the "chosen" directive as an attribute on any select element.  Angular version 1.2+ is required.
 
-# Installation
+# Examples Demo Page
+ [/example/index.html](http://htmlpreview.github.io/?https://github.com/leocaseiro/angular-chosen/blob/master/example/index.html)
+
+
+## Installation
 
     $ bower install angular-chosen-localytics --save
 
@@ -116,4 +120,4 @@ Note: Assigning promises directly to scope is now deprecated in Angular 1.2+.  A
 once the promise returns.  The loader animation will still work as long as the collection expression
 evaluates to `undefined` while your data is loading!
 
-See the example directory for more detailed usage.
+See the [example directory](http://htmlpreview.github.io/?https://github.com/leocaseiro/angular-chosen/blob/master/example/index.html) for more detailed usage.
