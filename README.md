@@ -1,4 +1,4 @@
-Angular Chosen Localytics [![Bower](https://img.shields.io/bower/v/angular-chosen-localytics.svg)](https://github.com/leocaseiro/angular-chosen)
+Angular Chosen Localytics [![bower](https://img.shields.io/badge/bower-v1.2.0-brightgreen.svg)](https://github.com/leocaseiro/angular-chosen) [![npm](https://img.shields.io/badge/npm-v1.2.0-brightgreen.svg)](https://www.npmjs.com/package/angular-chosen-localytics)
 ==============
 
 AngularJS Chosen directive
@@ -13,9 +13,23 @@ use the "chosen" directive as an attribute on any select element.  Angular versi
  [/example/index.html](http://htmlpreview.github.io/?https://github.com/leocaseiro/angular-chosen/blob/master/example/index.html)
 
 
-## Installation
+## Installation (npm or bower)
+
+Via bower
 
     $ bower install angular-chosen-localytics --save
+
+Via npm
+
+    $ npm install angular-chosen-localytics --save
+
+
+
+Or download zip file
+[Download v1.2.0](https://github.com/leocaseiro/angular-chosen/archive/1.2.0.zip)
+
+
+
 
 ## Yeoman or Bower install
 If you use Yeoman or Bower install, you need to rename the `chosen.jquery.js` or the `chosen.proto.js` to `chosen.js`. Otherwise Chosen won't be included in your `index.html`.
