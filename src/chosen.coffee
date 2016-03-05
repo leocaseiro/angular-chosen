@@ -36,6 +36,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
   priority: 1,
   link: (scope, element, attr, ngModel) ->
     scope.disabledValuesHistory = if scope.disabledValuesHistory then scope.disabledValuesHistory else []
+    element = $ element # Use real JQuery if it wasn't loaded before Angular.
     element.addClass('localytics-chosen')
 
     # Take a hash of options from the chosen directive
