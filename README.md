@@ -9,8 +9,8 @@ into AngularJS with ngModel and ngOptions integration.
 To use, include "localytics.directives" as a dependency in your Angular module.  You can now
 use the "chosen" directive as an attribute on any select element.  Angular version 1.2+ is required.
 
-# Examples Demo Page
- [/example/index.html](http://htmlpreview.github.io/?https://github.com/leocaseiro/angular-chosen/blob/master/example/index.html)
+# [Full Documentation with Examples](http://leocaseiro.github.io/angular-chosen/)
+ 
 
 
 ## Installation (npm or bower)
