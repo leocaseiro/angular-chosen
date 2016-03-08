@@ -5,6 +5,9 @@
     "type": "git",
     "url": "git://github.com/leocaseiro/angular-chosen.git"
   },
+  "ignore": [
+    "docs/"
+  ],
   "main": "dist/angular-chosen.min.js",
   "dependencies": {
     "jquery": "^2.0.3",
