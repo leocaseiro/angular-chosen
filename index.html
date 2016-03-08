@@ -1,0 +1,379 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Angular Chosen</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <!-- <img src="images/logo.png" /> -->
+        <div class="lang-selector">
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc"></div>
+        <ul class="toc-footer">
+            <li><a target="_blank" href='https://github.com/leocaseiro/angular-chosen/releases'>Angular Chosen v1.2.0</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="angular-chosen-localytics">Angular Chosen Localytics <a href="https://github.com/leocaseiro/angular-chosen"><img alt="bower" src="https://img.shields.io/badge/bower-v1.2.0-brightgreen.svg" /></a> <a href="https://www.npmjs.com/package/angular-chosen-localytics"><img alt="npm" src="https://img.shields.io/badge/npm-v1.2.0-brightgreen.svg" /></a></h1>
+
+<p>AngularJS Chosen directive</p>
+
+<p>This directive brings the <a href="http://harvesthq.github.com/chosen/">Chosen</a> jQuery plugin
+into AngularJS with ngModel and ngOptions integration.</p>
+
+<p>Angular version 1.2+ is required.
+<aside class="warning">WARNING: Since the version <strong>1.2.0</strong> the file <strong>./chosen.js</strong> is deprecated and you must include <strong>./dist/angular-chosen.js</strong> or <strong>./dist/angular-chosen.min.js</strong> instead</aside></p>
+
+<h1 id="get-started">Get Started</h1>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="install-via-bower">install via bower</h3>
+
+<blockquote>
+<p>bower install angular-chosen-localytics &ndash;save</p>
+</blockquote>
+
+<aside class="notice">If you use <strong>Yeoman</strong> or <strong>bower install</strong>, you need to rename the <strong>chosen.jquery.js</strong> or the <strong>chosen.proto.js</strong> to <strong>chosen.js</strong>. Otherwise <strong>chosen.js</strong> won&rsquo;t be included in your <strong>index.html</strong>.</aside>
+
+<h3 id="install-via-npm">install via npm</h3>
+
+<blockquote>
+<p>npm install angular-chosen-localytics &ndash;save</p>
+</blockquote>
+
+<h3 id="download-files">Download files</h3>
+
+<ul>
+<li><svg aria-hidden="true" class="octicon octicon-file-zip text-muted" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M8.5 1H1C0.45 1 0 1.45 0 2v12c0 0.55 0.45 1 1 1h10c0.55 0 1-0.45 1-1V4.5L8.5 1z m2.5 13H1V2h3v1h1v-1h3l3 3v9zM5 4v-1h1v1h-1z m-1 0h1v1h-1v-1z m1 2v-1h1v1h-1z m-1 0h1v1h-1v-1z m1 2v-1h1v1h-1z m-1 1.28c-0.59 0.34-1 0.98-1 1.72v1h4v-1c0-1.11-0.89-2-2-2v-1h-1v1.28z m2 0.72v1H4v-1h2z"></path></svg> <a href="https://github.com/leocaseiro/angular-chosen/archive/1.2.0.zip">angular-chosen-1.2.0.zip</a></li>
+<li><svg aria-hidden="true" class="octicon octicon-file-zip text-muted" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M8.5 1H1C0.45 1 0 1.45 0 2v12c0 0.55 0.45 1 1 1h10c0.55 0 1-0.45 1-1V4.5L8.5 1z m2.5 13H1V2h3v1h1v-1h3l3 3v9zM5 4v-1h1v1h-1z m-1 0h1v1h-1v-1z m1 2v-1h1v1h-1z m-1 0h1v1h-1v-1z m1 2v-1h1v1h-1z m-1 1.28c-0.59 0.34-1 0.98-1 1.72v1h4v-1c0-1.11-0.89-2-2-2v-1h-1v1.28z m2 0.72v1H4v-1h2z"></path></svg> <a href="https://github.com/leocaseiro/angular-chosen/archive/1.2.0.tar.gz">angular-chosen-1.2.0.tar.gz</a></li>
+</ul>
+
+<h2 id="include-libraries">Include libraries</h2>
+<pre class="highlight html"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"./bower_components/chosen/chosen.css"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"./bower_components/jquery/dist/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"./bower_components/angular/angular.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"./bower_components/chosen/chosen.jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"./bower_components/angular-chosen-localytics/dist/angular-chosen.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre>
+
+<aside class="notice">Make sure you <a target="_blank" href="https://docs.angularjs.org/api/ng/function/angular.element">include jQuery before Angular</a>!</aside>
+
+<h2 id="dependency-injection">Dependency Injection</h2>
+
+<p>Include `&lsquo;localytics.directives&rsquo; as dependency in your Angular Module</p>
+<pre class="highlight javascript"><code><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'App'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'localytics.directives'</span><span class="p">])</span>
+</code></pre>
+
+<h2 id="directive-chosen-on-lt-select-gt">Directive chosen on &lt;select&gt;</h2>
+
+<p>Use the <strong>chosen</strong> directive as an attribute on any <strong>&lt;select&gt;</strong> element.</p>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">chosen</span><span class="nt">&gt;</span>...<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<h1 id="usage">Usage</h1>
+
+<h2 id="simple-example">Simple example</h2>
+
+<p>Similar to <code class="prettyprint">$(&quot;#states&quot;).chosen()</code></p>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">chosen</span> <span class="na">multiple</span> <span class="na">id=</span><span class="s">"states"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"AK"</span><span class="nt">&gt;</span>Alaska<span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"AZ"</span><span class="nt">&gt;</span>Arizona<span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"AR"</span><span class="nt">&gt;</span>Arkansas<span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"CA"</span><span class="nt">&gt;</span>California<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<h2 id="chosen-options">chosen options</h2>
+
+<p>Pass any chosen options as attributes</p>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">chosen</span>
+        <span class="na">data-placeholder=</span><span class="s">"Pick one of these"</span>
+        <span class="na">disable-search=</span><span class="s">"true"</span>
+        <span class="na">allow-single-deselect=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;&lt;/option&gt;</span>
+  <span class="nt">&lt;option&gt;</span>This is fun<span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option&gt;</span>I like Chosen so much<span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option&gt;</span>I also like bunny rabbits<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<aside class="warning">Note: the empty <strong>&lt;option value=&ldquo;&rdquo;&gt;&lt;/option&gt;</strong> element is mandatory when using <strong>allow-single-deselect</strong></aside>
+
+<h2 id="ngoptions-and-ngmodel">ngOptions and ngModel</h2>
+
+<p>Integration with <code class="prettyprint">ngModel</code> and <code class="prettyprint">ngOptions</code></p>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">multiple</span>
+        <span class="na">chosen</span>
+        <span class="na">ng-model=</span><span class="s">"state"</span>
+        <span class="na">ng-options=</span><span class="s">"s for s in states"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<aside class="notice">Note: don&rsquo;t try to use <strong>ngModel</strong> with <strong>ngRepeat</strong>.  It won&rsquo;t work.  Use <strong>ngOptions</strong>.  It&rsquo;s better that way.</aside>
+
+<aside class="warning">
+  Also important: if your <strong>ngModel</strong> is <i>null</i> or <i>undefined</i>, you must manually include an empty <strong>&lt;option value=&ldquo;&rdquo;&gt;&lt;/option&gt;</strong> inside your <strong>&lt;select&gt;</strong>, otherwise you&rsquo;ll encounter strange off-by-one errors:
+
+</aside>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">multiple</span>
+        <span class="na">chosen</span>
+        <span class="na">ng-model=</span><span class="s">"state"</span>
+        <span class="na">ng-options=</span><span class="s">"s for s in states"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<p>This annoying behavior is alluded to in the examples in the <a href="http://docs.angularjs.org/api/ng.directive:select">documentation for ngOptions</a>.</p>
+
+<h2 id="angularjs-lt-select-gt-directives">AngularJS &lt;select&gt; directives</h2>
+
+<p>Works well with other AngularJS directives</p>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">chosen</span>
+        <span class="na">ng-model=</span><span class="s">"state"</span>
+        <span class="na">ng-options=</span><span class="s">"s for s in states"</span>
+        <span class="na">ng-disabled=</span><span class="s">"editable"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<h2 id="remote-source-resource">Remote source $resource</h2>
+
+<h3 id="loading-from-a-remote-data-source">Loading from a remote data source</h3>
+
+<p>Include chosen-spinner.css and spinner.gif to show an Ajax spinner icon while your data is loading.  If the collection comes back empty, the directive will disable the element and show a default
+&ldquo;No values available&rdquo; message.  You can customize this message by passing in noResultsText in your options.</p>
+
+<h5 id="app-js">app.js</h5>
+<pre class="highlight javascript"><code><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'App'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngResource'</span><span class="p">,</span> <span class="s1">'localytics.directives'</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'BeerCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$resource</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">beers</span> <span class="o">=</span> <span class="nx">$resource</span><span class="p">(</span><span class="s1">'api/beers'</span><span class="p">).</span><span class="nx">query</span><span class="p">()</span>
+  <span class="p">});</span>
+</code></pre>
+
+<h5 id="index-html">index.html</h5>
+<pre class="highlight html"><code><span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">"BeerCtrl"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;select</span> <span class="na">chosen</span>
+          <span class="na">data-placeholder=</span><span class="s">"Choose a beer"</span>
+          <span class="na">no-results-text=</span><span class="s">"'Could not find any beers :('"</span>
+          <span class="na">ng-model=</span><span class="s">"beer"</span>
+          <span class="na">ng-options=</span><span class="s">"b for b in beers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+
+<p>Image of select defined above in loading state:  <img src="https://raw.github.com/localytics/angular-chosen/master/example/choose-a-beer.png"></p>
+
+<aside class="notice">Note: Assigning promises directly to scope is now deprecated in Angular 1.2+.  Assign the results of the promise to scope
+once the promise returns.  The loader animation will still work as long as the collection expression
+evaluates to `undefined` while your data is loading!</aside>
+
+<h2 id="ajax-http">AJAX $http</h2>
+
+<h5 id="app-js">app.js</h5>
+<pre class="highlight javascript"><code><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'App'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'localytics.directives'</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'PostCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$http</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$http</span><span class="p">(</span><span class="s1">'api/posts'</span><span class="p">).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">posts</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+</code></pre>
+
+<h5 id="index-html">index.html</h5>
+<pre class="highlight html"><code><span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">"PostCtrl"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;select</span> <span class="na">chosen</span>
+          <span class="na">data-placeholder=</span><span class="s">"Choose a post"</span>
+          <span class="na">no-results-text=</span><span class="s">"'Could not find any post :('"</span>
+          <span class="na">ng-model=</span><span class="s">"post"</span>
+          <span class="na">ng-options=</span><span class="s">"p for p in posts"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+
+<h2 id="translate">Translate</h2>
+
+<p>There are 3 attributes to translate messages.
+As an attribute directive, you should pass a variable or a Value between quotes.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Default (English)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>placeholder-text-single</td>
+<td>&#39;Select an Option&rsquo;</td>
+</tr>
+<tr>
+<td>placeholder-text-multiple</td>
+<td>&#39;Select Some Options&rsquo;</td>
+</tr>
+<tr>
+<td>no-results-text</td>
+<td>&#39;No results match&rsquo;</td>
+</tr>
+</tbody></table>
+
+<h3 id="example-in-brazilian-portuguese">Example in Brazilian Portuguese</h3>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">multiple</span> <span class="na">chosen</span>
+    <span class="na">no-results-text=</span><span class="s">"'Nenhum resultado encontrado para sua busca'"</span>
+    <span class="na">placeholder-text-multiple=</span><span class="s">"'Selecione as opções'"</span>
+    <span class="na">ng-model=</span><span class="s">"state"</span> <span class="na">ng-options=</span><span class="s">"s for s in states"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<p><a href="http://plnkr.co/edit/P3bWW2?p=preview">Translate Example</a></p>
+
+<h1 id="features">Features</h1>
+
+<ul>
+<li>Works with <code class="prettyprint">ngModel</code> and <code class="prettyprint">ngOptions</code></li>
+<li>Supports usage of promises in <code class="prettyprint">ngOptions</code></li>
+<li>Provides a &#39;loading&rsquo; animation when &#39;ngOptions&rsquo; collection is a promise backed by a remote source</li>
+<li>Pass options to <code class="prettyprint">Chosen</code> via attributes or by passing an object to the Chosen directive</li>
+</ul>
+
+          <h1 id="examples">Examples</h1>
+
+<h2 id="similar-to-quot-states-quot-chosen">Similar to $(&ldquo;#states&rdquo;).chosen()</h2>
+
+<iframe class="preview" src="http://embed.plnkr.co/fawiXh/" allowfullscreen></iframe>
+
+<h2 id="chosen-attributes">Chosen attributes</h2>
+
+<p>Angular Chosen Example using &lt;option&gt; and &lt;select&gt; with Chosen attributes</p>
+
+<iframe class="preview" src="http://embed.plnkr.co/a3oBYM/" allowfullscreen></iframe>
+
+<h2 id="multiple-angular-chosen-example-using-ngmodel-and-ngoptions">Multiple Angular Chosen Example using ngModel and ngOptions</h2>
+
+<iframe class="preview" src="http://embed.plnkr.co/1U8KCH/" allowfullscreen></iframe>
+
+<h2 id="selected-quot-selected-quot-from-remote">selected=&ldquo;selected&rdquo; from remote</h2>
+<pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">ng-options=</span><span class="s">"s.id as s.title for s in states"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+
+<iframe class="preview preview-big" src="http://embed.plnkr.co/cQEB5T/" allowfullscreen></iframe>
+
+<h2 id="lt-optgroup-gt">&lt;optgroup&gt;</h2>
+
+<p>Group by</p>
+
+<iframe class="preview preview-big" src="http://embed.plnkr.co/j0yIif/" allowfullscreen></iframe>
+
+<h2 id="translate">Translate</h2>
+
+<p>Example translated in Brazilian Portuguese Language</p>
+
+<iframe class="preview" src="http://embed.plnkr.co/P3bWW2/" allowfullscreen></iframe>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
