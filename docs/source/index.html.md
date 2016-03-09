@@ -31,14 +31,14 @@ Angular version 1.2+ is required.
 
 ### install via bower
 
->   bower install angular-chosen-localytics --save
+> bower install angular-chosen-localytics --save
 
 <aside class="notice">If you use <strong>Yeoman</strong> or <strong>bower install</strong>, you need to rename the <strong>chosen.jquery.js</strong> or the <strong>chosen.proto.js</strong> to <strong>chosen.js</strong>. Otherwise <strong>chosen.js</strong> won't be included in your <strong>index.html</strong>.</aside>
 
 
 ### install via npm
 
->   npm install angular-chosen-localytics --save
+> npm install angular-chosen-localytics --save
 
 
 ### Download files
@@ -111,8 +111,7 @@ Pass any chosen options as attributes
 Integration with `ngModel` and `ngOptions`
 
 ```html
-<select multiple
-        chosen
+<select chosen
         ng-model="state"
         ng-options="s for s in states">
 </select>
@@ -122,19 +121,24 @@ Integration with `ngModel` and `ngOptions`
 
 <aside class="warning">
   Also important: if your <strong>ngModel</strong> is <i>null</i> or <i>undefined</i>, you must manually include an empty <strong>&lt;option value=""&gt;&lt;/option&gt;</strong> inside your <strong>&lt;select&gt;</strong>, otherwise you'll encounter strange off-by-one errors:
-
 </aside>
 
+This annoying behavior is alluded to in the examples in the [documentation for ngOptions](http://docs.angularjs.org/api/ng.directive:select).
+
+
+## Multiple Select [(Example)](#multiple-works-better-with-object-child-dot)
+
+Integration with `ngModel` and `ngOptions` with [multiple select](#multiple-works-better-with-object-child-dot)
 
 ```html
-<select multiple
-        chosen
-        ng-model="state"
+<select chosen
+        ng-model="state.selected"
         ng-options="s for s in states">
-  <option value=""></option>
+    <option value=""></option>
 </select>
 ```
-This annoying behavior is alluded to in the examples in the [documentation for ngOptions](http://docs.angularjs.org/api/ng.directive:select).
+
+<aside class="warning">WARNING: Prefer use <strong>object.child</strong> while <strong>&lt;select multiple&gt;</strong>, <a href="#multiple-works-better-with-object-child-dot">angular works better with .(dot)</a></aside>
 
 
 ## AngularJS &lt;select&gt; directives
@@ -207,6 +211,22 @@ angular.module('App', ['localytics.directives'])
 </div>
 ```
 
+## ng-if instead of ng-show/ng-hide [(Example)](#multiple-works-better-with-object-child-dot)
+
+Angular Chosen, don't work well with `ng-show` or `ng-hide`.
+However, `ng-if` will do the job for you
+
+##### index.html
+```html
+<div ng-controller="PostCtrl">
+  <input type="checkbox" ng-model="showChosen" value="1" />
+  <select chosen
+          ng-if="showChosen"
+          ng-model="post"
+          ng-options="p for p in posts">
+  </select>
+</div>
+```
 
 
 ## Translate
@@ -226,7 +246,7 @@ Attribute | Default (English)
 <select multiple chosen
     no-results-text="'Nenhum resultado encontrado para sua busca'"
     placeholder-text-multiple="'Selecione as opções'"
-    ng-model="state" ng-options="s for s in states">
+    ng-model="state.selected" ng-options="s for s in states">
   <option value=""></option>
 </select>
 ```
