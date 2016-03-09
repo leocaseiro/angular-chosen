@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "jquery": "^2.0.3",
-    "chosen": "^1.1.0",
+    "chosen-npm": "^1.4.2",
     "angular": "^1.2.0"
   },
   "bugs": {
