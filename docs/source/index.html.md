@@ -2,6 +2,7 @@
 title: Angular Chosen
 
 toc_footers:
+  - <a href="https://twitter.com/leocaseiro" class="twitter-follow-button" data-show-count="true">@leocaseiro</a>
   - <a target="_blank" href='https://github.com/leocaseiro/angular-chosen/releases'>Angular Chosen v1.2.0</a>
 
 includes:
@@ -13,6 +14,8 @@ search: true
 
 Angular Chosen Localytics [![bower](https://img.shields.io/badge/bower-v1.2.0-brightgreen.svg)](https://github.com/leocaseiro/angular-chosen) [![npm](https://img.shields.io/badge/npm-v1.2.0-brightgreen.svg)](https://www.npmjs.com/package/angular-chosen-localytics)
 ==============
+
+ <iframe src="https://ghbtns.com/github-btn.html?user=leocaseiro&repo=angular-chosen&type=star&count=true"frameborder="0" scrolling="0" width="100px" height="20px"></iframe> <iframe src="https://ghbtns.com/github-btn.html?user=leocaseiro&repo=angular-chosen&type=watch&count=true&v=2"frameborder="0" scrolling="0" width="100px" height="20px"></iframe> <iframe src="https://ghbtns.com/github-btn.html?user=leocaseiro&repo=angular-chosen&type=fork&count=true"frameborder="0" scrolling="0" width="100px" height="20px"></iframe> <iframe src="https://ghbtns.com/github-btn.html?user=leocaseiro&type=follow&count=true"frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
 
 AngularJS Chosen directive
 
@@ -213,9 +216,9 @@ As an attribute directive, you should pass a variable or a Value between quotes.
 
 Attribute | Default (English)
 -------------- | --------------
-placeholder-text-single | 'Select an Option'
-placeholder-text-multiple | 'Select Some Options'
-no-results-text | 'No results match'
+`placeholder-text-single` | **'Select an Option'**
+`placeholder-text-multiple` | **'Select Some Options'**
+`no-results-text` | **'No results match'**
 
 ### Example in Brazilian Portuguese
 
