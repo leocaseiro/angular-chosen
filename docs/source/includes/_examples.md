@@ -41,3 +41,11 @@ Watch it: [https://egghead.io/lessons/angularjs-the-dot](https://egghead.io/less
 Reference: [http://stackoverflow.com/a/17607794/3415716](http://stackoverflow.com/a/17607794/3415716)
 
 <iframe class="preview" src="http://embed.plnkr.co/4dpqKG/" allowfullscreen></iframe>
+
+## Create new item on no resuls match
+
+<aside class="warning">Angular Chosen, didn't accept one if <a href="https://github.com/harvesthq/chosen/pull/166" target="blank">they most wanted feature</a> which is add new item if no results match.
+However, there's a <a href="https://github.com/koenpunt/chosen" target="blank">fork</a> that adds this feature and Angular Chosen is compatible with.</aside>
+Make sure you switch your Chosen to <a href="https://github.com/koenpunt/chosen" target="blank">koenpunt/chosen</a> one.
+
+<iframe class="preview" src="http://embed.plnkr.co/xZ5XbO/" allowfullscreen></iframe>
