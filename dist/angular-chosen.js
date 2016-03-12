@@ -1,6 +1,6 @@
 /**
  * angular-chosen-localytics - Angular Chosen directive is an AngularJS Directive that brings the Chosen jQuery in a Angular way
- * @version v1.2.0
+ * @version v1.2.1
  * @link http://github.com/leocaseiro/angular-chosen
  * @license MIT
  */
@@ -37,44 +37,29 @@
         require: '?ngModel',
         priority: 1,
         link: function(scope, element, attr, ngModel) {
-          var chosen, defaultText, disableWithMessage, empty, initOrUpdate, match, options, origRender, removeEmptyMessage, startLoading, stopLoading, valuesExpr, viewWatch;
+          var chosen, empty, initOrUpdate, match, options, origRender, startLoading, stopLoading, updateMessage, valuesExpr, viewWatch;
           scope.disabledValuesHistory = scope.disabledValuesHistory ? scope.disabledValuesHistory : [];
           element = $(element);
           element.addClass('localytics-chosen');
           options = scope.$eval(attr.chosen) || {};
           angular.forEach(attr, function(value, key) {
             if (indexOf.call(CHOSEN_OPTION_WHITELIST, key) >= 0) {
-              return options[snakeCase(key)] = String(element.attr(attr.$attr[key])).slice(0, 2) === '{{' ? value : scope.$eval(value);
+              return attr.$observe(key, function(value) {
+                options[snakeCase(key)] = String(element.attr(attr.$attr[key])).slice(0, 2) === '{{' ? value : scope.$eval(value);
+                return updateMessage();
+              });
             }
           });
           startLoading = function() {
-            var disabledValueOfElement, elementAlreadyExists;
-            disabledValueOfElement = {};
-            elementAlreadyExists = false;
-            angular.forEach(scope.disabledValuesHistory, function(data) {
-              if (data.hasOwnProperty(element.context.id)) {
-                data[element.context.id] = element.context.disabled;
-                elementAlreadyExists = true;
-              }
-            });
-            if (!elementAlreadyExists) {
-              disabledValueOfElement[element.context.id] = element.context.disabled;
-              scope.disabledValuesHistory.push(disabledValueOfElement);
-            }
             return element.addClass('loading').attr('disabled', true).trigger('chosen:updated');
           };
           stopLoading = function() {
-            var disabledValue;
-            disabledValue = false;
-            angular.forEach(scope.disabledValuesHistory, function(data) {
-              disabledValue = data.hasOwnProperty(element.context.id) ? data[element.context.id] : disabledValue;
-            });
-            return element.removeClass('loading').attr('disabled', disabledValue).trigger('chosen:updated');
+            return element.removeClass('loading').attr('disabled', false).trigger('chosen:updated');
           };
           chosen = null;
-          defaultText = null;
           empty = false;
           initOrUpdate = function() {
+            var defaultText;
             if (chosen) {
               return element.trigger('chosen:updated');
             } else {
@@ -84,13 +69,13 @@
               }
             }
           };
-          removeEmptyMessage = function() {
-            empty = false;
-            return element.attr('data-placeholder', defaultText).trigger('chosen:updated');
-          };
-          disableWithMessage = function() {
-            empty = true;
-            return element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true).trigger('chosen:updated');
+          updateMessage = function() {
+            if (empty) {
+              element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true);
+            } else {
+              element.removeAttr('data-placeholder');
+            }
+            return element.trigger('chosen:updated');
           };
           if (ngModel) {
             origRender = ngModel.$render;
@@ -119,13 +104,9 @@
                 if (angular.isUndefined(newVal)) {
                   return startLoading();
                 } else {
-                  if (empty) {
-                    removeEmptyMessage();
-                  }
+                  empty = isEmpty(newVal);
                   stopLoading();
-                  if (isEmpty(newVal) && !attr.allowEmptyResultsList) {
-                    return disableWithMessage();
-                  }
+                  return updateMessage();
                 }
               });
             });

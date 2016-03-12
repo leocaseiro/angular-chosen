@@ -33,7 +33,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
   restrict: 'A'
   require: '?ngModel'
-  priority: 1,
+  priority: 1
   link: (scope, element, attr, ngModel) ->
     scope.disabledValuesHistory = if scope.disabledValuesHistory then scope.disabledValuesHistory else []
     element = $ element # Use real JQuery if it wasn't loaded before Angular.
@@ -45,29 +45,17 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     # Options defined as attributes take precedence
     angular.forEach attr, (value, key) ->
       if key in CHOSEN_OPTION_WHITELIST
-        options[snakeCase(key)] = if String(element.attr(attr.$attr[key])).slice(0, 2) is '{{' then value else scope.$eval(value)
 
-    startLoading = ->
-      disabledValueOfElement = {}
-      elementAlreadyExists = false
-      angular.forEach scope.disabledValuesHistory, (data) ->
-        if data.hasOwnProperty(element.context.id)
-          data[element.context.id] = element.context.disabled
-          elementAlreadyExists = true
-        return
-      if !elementAlreadyExists
-        disabledValueOfElement[element.context.id] = element.context.disabled
-        scope.disabledValuesHistory.push disabledValueOfElement
-      element.addClass('loading').attr('disabled', true).trigger 'chosen:updated'
-    stopLoading = ->
-      disabledValue = false
-      angular.forEach scope.disabledValuesHistory, (data) ->
-        disabledValue = if data.hasOwnProperty(element.context.id) then data[element.context.id] else disabledValue
-        return
-      element.removeClass('loading').attr('disabled', disabledValue).trigger 'chosen:updated'
+        # Observe attributes
+        # Update the value in options. Set the default texts again. Update message.
+        attr.$observe key, (value) ->
+          options[snakeCase(key)] = if String(element.attr(attr.$attr[key])).slice(0, 2) is '{{' then value else scope.$eval(value)
+          updateMessage();
+
+    startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
+    stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
 
     chosen = null
-    defaultText = null
     empty = false
 
     initOrUpdate = ->
@@ -79,13 +67,12 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           defaultText = chosen.default_text
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
-    removeEmptyMessage = ->
-      empty = false
-      element.attr('data-placeholder', defaultText).trigger('chosen:updated');
-
-    disableWithMessage = ->
-      empty = true
-      element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true).trigger('chosen:updated')
+    updateMessage = ->
+      if empty
+        element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true)
+      else
+        element.removeAttr('data-placeholder')
+      element.trigger('chosen:updated')
 
     # Watch the underlying ngModel for updates and trigger an update when they occur.
     if ngModel
@@ -118,9 +105,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           if angular.isUndefined(newVal)
             startLoading()
           else
-            removeEmptyMessage() if empty
+            empty = isEmpty(newVal)
             stopLoading()
-            disableWithMessage() if isEmpty(newVal) and !attr.allowEmptyResultsList
+            updateMessage()
         )
 
       scope.$on '$destroy', (event) ->
