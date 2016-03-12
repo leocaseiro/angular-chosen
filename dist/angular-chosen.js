@@ -12,7 +12,7 @@
   angular.module('localytics.directives').directive('chosen', [
     '$timeout', function($timeout) {
       var CHOSEN_OPTION_WHITELIST, NG_OPTIONS_REGEXP, isEmpty, snakeCase;
-      NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/;
+      NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
       CHOSEN_OPTION_WHITELIST = ['noResultsText', 'allowSingleDeselect', 'disableSearchThreshold', 'disableSearch', 'enableSplitWordSearch', 'inheritSelectClasses', 'maxSelectedOptions', 'placeholderTextMultiple', 'placeholderTextSingle', 'searchContains', 'singleBackstrokeDelete', 'displayDisabledOptions', 'displaySelectedOptions', 'width'];
       snakeCase = function(input) {
         return input.replace(/[A-Z]/g, function($1) {
@@ -54,7 +54,13 @@
             return element.addClass('loading').attr('disabled', true).trigger('chosen:updated');
           };
           stopLoading = function() {
-            return element.removeClass('loading').attr('disabled', false).trigger('chosen:updated');
+            element.removeClass('loading');
+            if (angular.isDefined(attr.disabled)) {
+              element.attr('disabled', attr.disabled);
+            } else {
+              element.attr('disabled', false);
+            }
+            return element.trigger('chosen:updated');
           };
           chosen = null;
           empty = false;
