@@ -53,7 +53,14 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           updateMessage();
 
     startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
-    stopLoading = -> element.removeClass('loading').attr('disabled', false).trigger('chosen:updated')
+
+    stopLoading = ->
+      element.removeClass('loading')
+      if angular.isDefined attr.disabled
+        element.attr 'disabled', attr.disabled
+      else
+        element.attr 'disabled', false
+      element.trigger('chosen:updated')
 
     chosen = null
     empty = false
