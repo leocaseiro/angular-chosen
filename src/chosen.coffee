@@ -8,6 +8,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
   # Whitelist of options that will be parsed from the element's attributes and passed into Chosen
   CHOSEN_OPTION_WHITELIST = [
+    'persistentCreateOption'
+    'createOption'
+    'skipNoResults'
     'noResultsText'
     'allowSingleDeselect'
     'disableSearchThreshold'
@@ -22,6 +25,8 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     'displayDisabledOptions'
     'displaySelectedOptions'
     'width'
+    'includeGroupLabelInSelected'
+    'maxShownResults'
   ]
 
   snakeCase = (input) -> input.replace /[A-Z]/g, ($1) -> "_#{$1.toLowerCase()}"
