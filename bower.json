@@ -8,7 +8,7 @@
   "main": "dist/angular-chosen.min.js",
   "dependencies": {
     "jquery": "^2.0.3",
-    "chosen": "^1.1.0",
+    "chosen": "^1.5.1",
     "angular": "^1.2.0"
   },
   "license": "MIT"
