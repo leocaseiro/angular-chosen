@@ -1,4 +1,4 @@
-Angular Chosen Localytics [![bower](https://img.shields.io/badge/bower-v1.2.0-brightgreen.svg)](https://github.com/leocaseiro/angular-chosen) [![npm](https://img.shields.io/badge/npm-v1.2.0-brightgreen.svg)](https://www.npmjs.com/package/angular-chosen-localytics)
+Angular Chosen Localytics [![bower](https://img.shields.io/badge/bower-v1.3.0-brightgreen.svg)](https://github.com/leocaseiro/angular-chosen) [![npm](https://img.shields.io/badge/npm-v1.3.0-brightgreen.svg)](https://www.npmjs.com/package/angular-chosen-localytics)
 ==============
 
 AngularJS Chosen directive
