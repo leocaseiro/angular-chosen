@@ -73,7 +73,7 @@ gulp.task('build-minify', ['build-coffee-script'], function() {
 /**
  * Run Clean Javascripts, than minify(coffee-script)
  */
-gulp.task('build', ['build-clean-javascripts'], function() {
+gulp.task('build', ['test', 'build-clean-javascripts'], function() {
     gulp.start('build-minify');
 });
 
