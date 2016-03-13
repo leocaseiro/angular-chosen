@@ -1,4 +1,5 @@
 var config = {
+    test: './test',
 	src: './src/',
     dist: './dist/',
     file: 'angular-chosen'
@@ -14,12 +15,21 @@ var banner = ['/**',
 
 var args = require('yargs').argv,
     gulp = require('gulp'),
+    karma = require('karma'),
     del  = require('del'),
     $    = require('gulp-load-plugins')({ lazy: true }),
     pkg  = require('./package.json');
 
 // List Tasks by default
 gulp.task('default', $.taskListing.withFilters(null, ['build-hint']));
+
+// without gulp-karma: https://github.com/karma-runner/gulp-karma
+gulp.task('test', function(done) {
+  new karma.Server({
+    configFile: __dirname + '/test/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
 
 //TODO rewrite Coffee Script of coffeelint()
 gulp.task('build-hint', function() {

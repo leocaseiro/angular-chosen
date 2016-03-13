@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "jquery": "^2.0.3",
-    "chosen-npm": "^1.4.2",
+    "chosen-npm": "^1.5.1",
     "angular": "^1.2.0"
   },
   "bugs": {
@@ -62,8 +62,14 @@
     "gulp-task-listing": "^1.0.1",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
+    "jasmine-core": "^2.4.1",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
+    "karma": "^0.13.22",
+    "karma-coffee-preprocessor": "^0.3.0",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "phantomjs-prebuilt": "^2.1.5",
     "yargs": "^4.2.0"
   }
 }
