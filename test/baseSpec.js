@@ -58,6 +58,24 @@ describe('base functionality', function() {
     expect($scope.changed).toBe(true);
   });
 
+  it('should disable chosen with ngDisabled', function() {
+    $scope.disabled = true;
+
+    // Compile a piece of HTML containing the directive
+    element = $compile('<select chosen ng-options="lang for lang in languages" ng-model="currentLanguage" ng-disabled="disabled"><option></option></select>')($scope);
+    $scope.$digest();
+
+    var chosenContainer = element.next();
+
+    expect(chosenContainer.hasClass('chosen-disabled')).toBe(true);
+
+    $scope.disabled = false;
+    $scope.$digest();
+
+    expect(chosenContainer.hasClass('chosen-disabled')).toBe(false);
+  });
+
+
 });
 
 
