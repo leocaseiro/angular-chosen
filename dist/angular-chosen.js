@@ -89,6 +89,11 @@
               origRender();
               return initOrUpdate();
             };
+            element.on('chosen:hiding_dropdown', function() {
+              return scope.$apply(function() {
+                return ngModel.$setTouched();
+              });
+            });
             if (attr.multiple) {
               viewWatch = function() {
                 return ngModel.$viewValue;
