@@ -2,16 +2,23 @@
 <head>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 
-  <script src="vendor/chosen.jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
 
   <script src="../dist/angular-chosen.min.js"></script>
   <script src="index.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="vendor/chosen.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css" />
   <link rel="stylesheet" type="text/css" href="../chosen-spinner.css" />
-
+  <style>
+    .localytics-chosen {
+      display: block !important;
+      position:absolute;
+      clip:rect(0,0,0,0);
+      height: 29px;
+    }
+  </style>
 </head>
 <body ng-controller="IndexCtrl">
   <h1>Chosen Directive Example Usage</h1>
@@ -89,6 +96,27 @@
       <option value=""></option>
   </select>
 
+  <h2>Form validation</h2>
+  <p>Shows error after user selects nothing (works with Angular 1.3+, uses $touched + $invalid)</p>
+  <form name="form">
+    <select chosen disable-search="true" ng-model="somefun" name="fun" required>
+      <option></option>
+      <option>Great</option>
+      <option>fun</option>
+      <option>Great fun .. indeed</option>
+    </select>
+    <span ng-if="form.fun.$invalid && form.fun.$touched">
+      Error: {{form.fun.$error}}
+    </span>
+    <select disable-search="true" ng-model="somefun" name="fun" required>
+      <option></option>
+      <option>Great</option>
+      <option>fun</option>
+      <option>Great fun .. indeed</option>
+    </select>
+    <br>
+    <input type="submit" />
+  </form>
 </body>
 
 </html>

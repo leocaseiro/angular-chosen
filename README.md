@@ -1,4 +1,4 @@
-Angular Chosen Localytics [![bower](https://img.shields.io/badge/bower-v1.3.0-brightgreen.svg)](https://github.com/leocaseiro/angular-chosen) [![npm](https://img.shields.io/badge/npm-v1.3.0-brightgreen.svg)](https://www.npmjs.com/package/angular-chosen-localytics)
+Angular Chosen Localytics [![Bower](https://img.shields.io/bower/v/angular-chosen-localytics.svg)](https://github.com/leocaseiro/angular-chosen) [![npm](https://img.shields.io/npm/v/angular-chosen-localytics.svg)](https://www.npmjs.com/package/angular-chosen-localytics)
 ==============
 
 AngularJS Chosen directive
@@ -7,10 +7,10 @@ This directive brings the [Chosen](http://harvesthq.github.com/chosen/) jQuery p
 into AngularJS with ngModel and ngOptions integration.
 
 To use, include "localytics.directives" as a dependency in your Angular module.  You can now
-use the "chosen" directive as an attribute on any select element.  Angular version 1.2+ is required.
+use the "chosen" directive as an attribute on any select element.  Angular version 1.3+ is required, but recomended 1.4.9+.
 
 # [Full Documentation with Examples](http://leocaseiro.github.io/angular-chosen/)
- 
+
 
 
 ## Installation (npm or bower)
