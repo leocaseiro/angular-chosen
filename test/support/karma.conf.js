@@ -1,37 +1,27 @@
-// http://karma-runner.github.io/0.13/config/configuration-file.html
+'use strict';
+
 module.exports = function(config) {
   config.set({
-    preprocessors: {
-      '**/*.coffee': ['coffee']
-    },
+    basePath: '../../',
 
-    coffeePreprocessor: {
-      // options passed to the coffee compiler
-      options: {
-        bare: true,
-        sourceMap: false
-      },
-      // transforming the filenames
-      transformPath: function(path) {
-        return path.replace(/\.coffee$/, '.js')
-      }
-    },
-
-    // make sure to include the .coffee files not the compiled .js files
-    files: [
-      'node_modules/jquery/dist/jquery.js',
-      'node_modules/angular/angular.js',
-      'node_modules/angular-mocks/angular-mocks.js',
-      'node_modules/chosen-npm/public/chosen.jquery.js',
-
-      'src/*.coffee',
-
-      'test/helper.js',
-      'test/*Spec.js'
+    frameworks: [
+      'jasmine',
+      'jasmine-matchers'
     ],
 
-    basePath: '../',
-    frameworks: ['jasmine'],
+    files: [
+      'node_modules/jquery/dist/jquery.js',
+      'node_modules/chosen-npm/public/chosen.jquery.js',
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'src/**/*.coffee',
+      'test/support/*.js',
+      'test/**/*.spec.js'
+    ],
+
+    preprocessors: {
+      'src/**/*.coffee': ['coffee']
+    },
 
     // Start these browsers, currently available:
     // - Chrome
@@ -53,7 +43,10 @@ module.exports = function(config) {
       // 'karma-firefox-launcher',
       // 'karma-safari-launcher',
       'karma-jasmine',
+      'karma-jasmine-matchers',
       'karma-coffee-preprocessor'
     ],
-  })
-}
+
+    singleRun: true
+  });
+};
