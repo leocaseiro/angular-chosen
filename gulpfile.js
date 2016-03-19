@@ -90,3 +90,9 @@ gulp.task('build-clean-javascripts', function() {
 gulp.task('watcher', ['build-minify'], function() {
     gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['build-minify']);
 });
+
+gulp.task('test', function (done) {
+  new karma.Server({
+    configFile: __dirname + '/test/support/karma.conf.js'
+  }, done).start();
+});
