@@ -1,13 +1,21 @@
 describe('Chosen options: inherit-select-classes', function () {
-  beforeEach(function () {
+  
+  it('passes classes from the select tag to the chosen container', function () {
     chosenSelectHelper.compileWithAttributes({
       inheritSelectClasses: true,
       'class': 'inherited-class'
     });
+  
+    expect(chosenSelectHelper.chosenContainer().hasClass('inherited-class')).toBeTruthy();
   });
 
   it('passes classes from the select tag to the chosen container', function () {
-    expect(chosenSelectHelper.chosenContainer().hasClass('inherited-class')).toBeTruthy();
+    chosenSelectHelper.compileWithAttributes({
+      inheritSelectClasses: false,
+      'class': 'inherited-class'
+    });
+
+    expect(chosenSelectHelper.chosenContainer().hasClass('inherited-class')).toBeFalsy();
   });
 });
 
