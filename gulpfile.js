@@ -87,12 +87,19 @@ gulp.task('build-clean-javascripts', function() {
 /**
  * Watch files and compile Coffee Script in real-time
  */
-gulp.task('watcher', ['build-minify'], function() {
+gulp.task('watcher', ['build-minify', 'tests'], function() {
     gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['build-minify']);
 });
 
 gulp.task('test', function (done) {
   new karma.Server({
     configFile: __dirname + '/test/support/karma.conf.js'
+  }, done).start();
+});
+
+gulp.task('tests', function (done) {
+  new karma.Server({
+    configFile: __dirname + '/test/support/karma.conf.js',
+    singleRun: false
   }, done).start();
 });
