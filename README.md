@@ -26,7 +26,7 @@ Via npm
 
 
 Or download zip file
-[Download v1.3.0](https://github.com/leocaseiro/angular-chosen/archive/1.3.0.zip)
+[Download v1.4.0](https://github.com/leocaseiro/angular-chosen/archive/1.4.0.zip)
 
 
 
