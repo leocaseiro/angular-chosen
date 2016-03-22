@@ -72,13 +72,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     chosen = null
     empty = false
 
-    initOrUpdate = ->
-      if chosen
-        element.trigger('chosen:updated')
-      else
-        chosen = element.chosen(options).data('chosen')
-        if angular.isObject(chosen)
-          defaultText = chosen.default_text
+
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     updateMessage = ->

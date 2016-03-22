@@ -87,8 +87,8 @@ gulp.task('build-clean-javascripts', function() {
 /**
  * Watch files and compile Coffee Script in real-time
  */
-gulp.task('watcher', ['build-minify', 'tests'], function() {
-    gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['build-minify']);
+gulp.task('watcher', ['tests'], function() {
+    gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['tests']);
 });
 
 gulp.task('test', function (done) {
@@ -97,7 +97,7 @@ gulp.task('test', function (done) {
   }, done).start();
 });
 
-gulp.task('tests', function (done) {
+gulp.task('tests', ['build-minify'], function (done) {
   new karma.Server({
     configFile: __dirname + '/test/support/karma.conf.js',
     singleRun: false
