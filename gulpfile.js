@@ -23,14 +23,6 @@ var args = require('yargs').argv,
 // List Tasks by default
 gulp.task('default', $.taskListing.withFilters(null, ['build-hint']));
 
-// without gulp-karma: https://github.com/karma-runner/gulp-karma
-gulp.task('test', function(done) {
-  new karma.Server({
-    configFile: __dirname + '/test/karma.conf.js',
-    singleRun: true
-  }, done).start();
-});
-
 //TODO rewrite Coffee Script of coffeelint()
 gulp.task('build-hint', function() {
     return gulp.src(config.src + '/*.coffee')
@@ -91,14 +83,14 @@ gulp.task('watcher', ['tests'], function() {
     gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['tests']);
 });
 
-gulp.task('test', function (done) {
+gulp.task('test', ['build'], function (done) {
   new karma.Server({
     configFile: __dirname + '/test/support/karma.conf.js',
       singleRun: true
   }, done).start();
 });
 
-gulp.task('tests', ['build-minify'], function (done) {
+gulp.task('tests', ['build'], function (done) {
   new karma.Server({
     configFile: __dirname + '/test/support/karma.conf.js',
     singleRun: false
