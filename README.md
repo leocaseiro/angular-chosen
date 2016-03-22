@@ -58,7 +58,7 @@ Similar to `$("#states").chosen()`
 
 ```html
 <select chosen
-        data-placeholder="Pick one of these"
+        data-placeholder-text-single="'Pick one of these'"
         disable-search="true"
         allow-single-deselect="true">
   <option value=""></option>
@@ -120,7 +120,7 @@ angular.module('App', ['ngResource', 'localytics.directives'])
 ```html
 <div ng-controller="BeerCtrl">
   <select chosen
-          data-placeholder="Choose a beer"
+          data-placeholder-text-single="'Choose a beer'"
           no-results-text="'Could not find any beers :('"
           ng-model="beer"
           ng-options="b for b in beers">
