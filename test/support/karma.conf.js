@@ -23,6 +23,8 @@ module.exports = function(config) {
       'src/**/*.coffee': ['coffee']
     },
 
+    reporters: ['mocha'],
+
     // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
@@ -38,6 +40,7 @@ module.exports = function(config) {
 
     // Which plugins to enable
     plugins: [
+      'karma-mocha-reporter',
       'karma-phantomjs-launcher',
       // 'karma-chrome-launcher',
       // 'karma-firefox-launcher',

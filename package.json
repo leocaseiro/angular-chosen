@@ -73,6 +73,7 @@
     "karma-coffee-preprocessor": "^0.3.0",
     "karma-jasmine": "^0.3.7",
     "karma-jasmine-matchers": "^2.0.2",
+    "karma-mocha-reporter": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "phantomjs-prebuilt": "^2.1.5",
     "yargs": "^4.2.0"
@@ -81,4 +82,3 @@
     "test": "gulp test"
   }
 }
-
