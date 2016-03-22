@@ -16,7 +16,8 @@ describe('#179 inherit-select-classes inside ng-if', function () {
     $scope.$digest();
     chosenContainer = element.find('.localytics-directive').next();
     console.log('chosenContainer', element);
-    expect(chosenContainer.hasClass(customClass)).toBe(true);
+    $timeout(function() {
+        expect(chosenContainer.hasClass(customClass)).toBe(true);
+    });
   });
-
 });
