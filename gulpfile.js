@@ -73,7 +73,7 @@ gulp.task('build-minify', ['build-coffee-script'], function() {
 /**
  * Run Clean Javascripts, than minify(coffee-script)
  */
-gulp.task('build', ['test', 'build-clean-javascripts'], function() {
+gulp.task('build', ['build-clean-javascripts'], function() {
     gulp.start('build-minify');
 });
 
@@ -93,7 +93,8 @@ gulp.task('watcher', ['tests'], function() {
 
 gulp.task('test', function (done) {
   new karma.Server({
-    configFile: __dirname + '/test/support/karma.conf.js'
+    configFile: __dirname + '/test/support/karma.conf.js',
+      singleRun: true
   }, done).start();
 });
 

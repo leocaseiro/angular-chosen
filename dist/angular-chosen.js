@@ -69,9 +69,9 @@
             if (chosen) {
               return element.trigger('chosen:updated');
             } else {
-              $timeout((function() {
+              $timeout(function() {
                 chosen = element.chosen(options).data('chosen');
-              }));
+              });
               if (angular.isObject(chosen)) {
                 return defaultText = chosen.default_text;
               }
