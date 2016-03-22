@@ -9,7 +9,7 @@ describe('base functionality', function() {
     // Compile a piece of HTML containing the directive
     element = $compile('<select chosen ng-options="lang for lang in languages" ng-model="currentLanguage"><option></option></select>')($scope);
     $scope.$digest();
-
+    $timeout.flush();
     element.trigger('chosen:open.chosen'); // fills dropdown (triggers chosen:showing_dropdown when finished)
   });
 
@@ -43,6 +43,7 @@ describe('base functionality', function() {
     // Compile a piece of HTML containing the directive
     element = $compile('<select chosen ng-options="lang for lang in languages" ng-model="currentLanguage" ng-change="changed=true"><option></option></select>')($scope);
     $scope.$digest();
+    $timeout.flush();
 
     element.trigger('chosen:open.chosen');
 
@@ -64,6 +65,7 @@ describe('base functionality', function() {
     // Compile a piece of HTML containing the directive
     element = $compile('<select chosen ng-options="lang for lang in languages" ng-model="currentLanguage" ng-disabled="disabled"><option></option></select>')($scope);
     $scope.$digest();
+    $timeout.flush();
 
     var chosenContainer = element.next();
 

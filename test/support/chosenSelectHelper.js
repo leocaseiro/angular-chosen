@@ -20,6 +20,7 @@ angular.module('chosenSelectHelper', [])
 
       $compile(this.selectTag)($scope);
       $scope.$digest();
+      $timeout.flush();
     },
 
     selectTag: angular.element('<select chosen><option value=""></option></select>'),
