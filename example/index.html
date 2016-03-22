@@ -3,7 +3,6 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
 
   <script src="../dist/angular-chosen.min.js"></script>
@@ -12,11 +11,14 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css" />
   <link rel="stylesheet" type="text/css" href="../chosen-spinner.css" />
   <style>
-    .localytics-chosen {
+    select.localytics-chosen {
       display: block !important;
       position:absolute;
       clip:rect(0,0,0,0);
       height: 29px;
+    }
+    .border-red {
+      border: 1px solid red;
     }
   </style>
 </head>
@@ -117,6 +119,20 @@
     <br>
     <input type="submit" />
   </form>
+
+
+  <h2>#179 - inherit-select-class inside ng-if:</h2>
+  <label for="ngIfInherit">Ng If {{ngIfInherit}}</label>
+  <input id="ngIfInherit" type="checkbox" value="1" ng-model="ngIfInherit">
+  <br>
+  <div>
+    <select ng-if="ngIfInherit" multiple inherit-select-classes="true" class="border-red" chosen ng-model="myPets"
+    ng-options="value as label for (value, label) in pets" style="width:200px;">
+      <option value=""></option>
+    </select>
+  </div>
+
+
 </body>
 
 </html>
