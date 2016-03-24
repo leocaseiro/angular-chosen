@@ -10,7 +10,7 @@ To use, include `localytics.directives` as a dependency in your Angular module. 
 use the `chosen` directive as an attribute on any select element.  Angular version 1.3+ is required, but recomended 1.4.9+.
 
 # [Full Documentation with Examples](http://leocaseiro.github.io/angular-chosen/)
-* Documentation on [Github Page]((http://leocaseiro.github.io/angular-chosen/)
+* Documentation on [Github Page](http://leocaseiro.github.io/angular-chosen/)
 * Examples on [example/index.html](http://htmlpreview.github.io/?https://github.com/leocaseiro/angular-chosen/blob/master/example/index.html)
 
 
@@ -130,7 +130,8 @@ angular.module('App', ['ngResource', 'localytics.directives'])
 </div>
 ```
 
-Image of select defined above in loading state: `<img src="https://raw.github.com/localytics/angular-chosen/master/example/choose-a-beer.png">`
+Image of select defined above in loading state:
+`<img src="https://raw.github.com/localytics/angular-chosen/master/example/choose-a-beer.png">`
 
 > Note: Assigning promises directly to scope is now deprecated in Angular 1.2+.  Assign the results of the promise to scope
 once the promise returns.  The loader animation will still work as long as the collection expression
