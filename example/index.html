@@ -29,7 +29,7 @@
     chosen
     multiple
     allow-single-deselect="true"
-    data-placeholder="Choose Your Own Adventure"
+    placeholder-text-multiple="'Choose Your Own Adventure'"
     no-results-text="'Tough luck'"
     ng-model="foo"
     ng-options="value for value in optionsFromQuery"
@@ -41,7 +41,7 @@
   <select
     chosen
     allow-single-deselect="true"
-    data-placeholder="Choose Your Own Adventure"
+    placeholder-text-single="'Choose Your Own Adventure'"
     no-results-text="'Tough luck'"
     ng-model="baz"
     ng-options="value for (key,value) in optionsFromQueryAsHash"
