@@ -103,6 +103,7 @@ Similar to `$("#states").chosen()`
         ng-model="state"
         ng-options="s for s in states"
         ng-disabled="editable">
+  <option value=""></option>
 </select>
 ```
 
@@ -113,9 +114,9 @@ Include `chosen-spinner.css` and `spinner.gif` to show an Ajax spinner icon whil
 ##### app.js
 ```js
 angular.module('App', ['ngResource', 'localytics.directives'])
-.controller('BeerCtrl', function($scope,$resource) {
-  $scope.beers = $resource('api/beers').query()
-});
+    .controller('BeerCtrl', function($scope, $resource) {
+      $scope.beers = $resource('api/beers').query()
+    });
 ```
 
 ##### index.html
@@ -126,6 +127,7 @@ angular.module('App', ['ngResource', 'localytics.directives'])
           no-results-text="'Could not find any beers :('"
           ng-model="beer"
           ng-options="b for b in beers">
+      <option value=""></option>
   </select>
 </div>
 ```
