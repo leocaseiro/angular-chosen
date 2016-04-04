@@ -26,9 +26,15 @@ Via npm
     $ npm install angular-chosen-localytics --save
 
 
+Via [cdn](https://cdnjs.com/libraries/angular-chosen-localytics)
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chosen-localytics/1.4.0/angular-chosen.min.js"></script>
+```
+
+    
 
 Or download zip file
-[Download v1.4.0](https://github.com/leocaseiro/angular-chosen/archive/1.4.0.zip)
+> [Download v1.4.0](https://github.com/leocaseiro/angular-chosen/archive/1.4.0.zip)
 
 
 
