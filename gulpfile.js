@@ -36,18 +36,15 @@ gulp.task('build-hint', function() {
     return gulp.src(config.src + '/*.coffee')
         .pipe($.if(args.debug, $.debug()))
         .pipe($.plumber())
-        .pipe($.coffeelint())
+        .pipe($.coffeelint('./src/coffeelint.json'))
         .pipe($.coffeelint.reporter());
-        // .pipe($.jshint())
-        // .pipe($.jshint.reporter('jshint-stylish', { verbose: true }));
-        // .pipe($.jscs());
 });
 
 // gulp.task('build-coffee-script', ['build-hint'], function() {
 /**
  * Compile CoffeeScript into ./dist/angular-chose.js
  */
-gulp.task('build-coffee-script', function() {
+gulp.task('build-coffee-script', ['build-hint'], function() {
     return gulp.src(config.src + '/*.coffee')
         .pipe($.if(args.debug, $.debug()))
         .pipe($.plumber())

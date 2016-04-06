@@ -2,8 +2,10 @@ angular.module('localytics.directives', [])
 
 angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeout) ->
 
+  # coffeelint: disable=max_line_length
   # This is stolen from Angular...
   NG_OPTIONS_REGEXP =  /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/
+  # coffeelint: enable=max_line_length
 
 
   # Whitelist of options that will be parsed from the element's attributes and passed into Chosen
@@ -56,8 +58,9 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         # Observe attributes
         # Update the value in options. Set the default texts again. Update message.
         attr.$observe key, (value) ->
-          options[snakeCase(key)] = if String(element.attr(attr.$attr[key])).slice(0, 2) is '{{' then value else scope.$eval(value)
-          updateMessage();
+          prefix = String(element.attr(attr.$attr[key])).slice(0, 2)
+          options[snakeCase(key)] = if prefix is '{{' then value else scope.$eval(value)
+          updateMessage()
 
     startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
 
@@ -77,8 +80,6 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
         element.trigger('chosen:updated')
       else
         chosen = element.chosen(options).data('chosen')
-        if angular.isObject(chosen)
-          defaultText = chosen.default_text
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     updateMessage = ->
@@ -116,7 +117,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
       valuesExpr = match[7]
 
-      scope.$watchCollection valuesExpr, (newVal, oldVal) ->
+      scope.$watchCollection valuesExpr, (newVal) ->
         # Defer execution until DOM is loaded
         timer = $timeout(->
           if angular.isUndefined(newVal)
@@ -127,6 +128,6 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
             updateMessage()
         )
 
-      scope.$on '$destroy', (event) ->
+      scope.$on '$destroy', ->
         $timeout.cancel timer if timer?
 ]

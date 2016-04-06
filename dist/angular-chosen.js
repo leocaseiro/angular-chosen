@@ -45,7 +45,9 @@
           angular.forEach(attr, function(value, key) {
             if (indexOf.call(CHOSEN_OPTION_WHITELIST, key) >= 0) {
               return attr.$observe(key, function(value) {
-                options[snakeCase(key)] = String(element.attr(attr.$attr[key])).slice(0, 2) === '{{' ? value : scope.$eval(value);
+                var prefix;
+                prefix = String(element.attr(attr.$attr[key])).slice(0, 2);
+                options[snakeCase(key)] = prefix === '{{' ? value : scope.$eval(value);
                 return updateMessage();
               });
             }
@@ -65,14 +67,10 @@
           chosen = null;
           empty = false;
           initOrUpdate = function() {
-            var defaultText;
             if (chosen) {
               return element.trigger('chosen:updated');
             } else {
-              chosen = element.chosen(options).data('chosen');
-              if (angular.isObject(chosen)) {
-                return defaultText = chosen.default_text;
-              }
+              return chosen = element.chosen(options).data('chosen');
             }
           };
           updateMessage = function() {
@@ -109,7 +107,7 @@
           if (attr.ngOptions && ngModel) {
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
             valuesExpr = match[7];
-            scope.$watchCollection(valuesExpr, function(newVal, oldVal) {
+            scope.$watchCollection(valuesExpr, function(newVal) {
               var timer;
               return timer = $timeout(function() {
                 if (angular.isUndefined(newVal)) {
@@ -121,7 +119,7 @@
                 }
               });
             });
-            return scope.$on('$destroy', function(event) {
+            return scope.$on('$destroy', function() {
               if (typeof timer !== "undefined" && timer !== null) {
                 return $timeout.cancel(timer);
               }
