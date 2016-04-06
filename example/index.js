@@ -32,6 +32,7 @@
       $scope.directiveOptions = {
         no_results_text: "SO SORRY"
       };
+      $scope.ngIfInherit = true;
       $scope.myPets = ['cat'];
       $scope.pets = {
         cat: 'Cat',

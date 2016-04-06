@@ -23,15 +23,6 @@ var args = require('yargs').argv,
 // List Tasks by default
 gulp.task('default', $.taskListing.withFilters(null, ['build-hint']));
 
-// without gulp-karma: https://github.com/karma-runner/gulp-karma
-gulp.task('test', function(done) {
-  new karma.Server({
-    configFile: __dirname + '/test/karma.conf.js',
-    singleRun: true
-  }, done).start();
-});
-
-//TODO rewrite Coffee Script of coffeelint()
 gulp.task('build-hint', function() {
     return gulp.src(config.src + '/*.coffee')
         .pipe($.if(args.debug, $.debug()))
@@ -40,7 +31,6 @@ gulp.task('build-hint', function() {
         .pipe($.coffeelint.reporter());
 });
 
-// gulp.task('build-coffee-script', ['build-hint'], function() {
 /**
  * Compile CoffeeScript into ./dist/angular-chose.js
  */
@@ -70,7 +60,7 @@ gulp.task('build-minify', ['build-coffee-script'], function() {
 /**
  * Run Clean Javascripts, than minify(coffee-script)
  */
-gulp.task('build', ['test', 'build-clean-javascripts'], function() {
+gulp.task('build', ['build-clean-javascripts'], function() {
     gulp.start('build-minify');
 });
 
@@ -84,6 +74,20 @@ gulp.task('build-clean-javascripts', function() {
 /**
  * Watch files and compile Coffee Script in real-time
  */
-gulp.task('watcher', ['build-minify'], function() {
-    gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['build-minify']);
+gulp.task('watcher', ['tests'], function() {
+    gulp.watch([config.src + '*.coffee', config.dist + '*.js'], ['tests']);
+});
+
+gulp.task('test', ['build'], function (done) {
+  new karma.Server({
+    configFile: __dirname + '/test/support/karma.conf.js',
+      singleRun: true
+  }, done).start();
+});
+
+gulp.task('tests', ['build'], function (done) {
+  new karma.Server({
+    configFile: __dirname + '/test/support/karma.conf.js',
+    singleRun: false
+  }, done).start();
 });

@@ -7,7 +7,6 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
   NG_OPTIONS_REGEXP =  /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/
   # coffeelint: enable=max_line_length
 
-
   # Whitelist of options that will be parsed from the element's attributes and passed into Chosen
   CHOSEN_OPTION_WHITELIST = [
     'persistentCreateOption'
@@ -79,7 +78,11 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       if chosen
         element.trigger('chosen:updated')
       else
-        chosen = element.chosen(options).data('chosen')
+        $timeout ->
+         chosen = element.chosen(options).data('chosen')
+         return
+        if angular.isObject(chosen)
+          defaultText = chosen.default_text
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     updateMessage = ->
@@ -117,7 +120,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       match = attr.ngOptions.match(NG_OPTIONS_REGEXP)
       valuesExpr = match[7]
 
-      scope.$watchCollection valuesExpr, (newVal) ->
+      scope.$watchCollection valuesExpr, (newVal, oldVal) ->
         # Defer execution until DOM is loaded
         timer = $timeout(->
           if angular.isUndefined(newVal)
@@ -128,6 +131,6 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
             updateMessage()
         )
 
-      scope.$on '$destroy', ->
+      scope.$on '$destroy', (event) ->
         $timeout.cancel timer if timer?
 ]
