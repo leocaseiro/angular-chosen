@@ -1,6 +1,6 @@
 angular.module('localytics.directives', [])
 
-angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeout) ->
+angular.module('localytics.directives').directive 'chosen', ['$timeout', '$interpolate',  ($timeout, $interpolate) ->
 
   # This is stolen from Angular...
   NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/
@@ -62,7 +62,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     removeEmptyMessage = ->
       empty = false
-      element.attr('data-placeholder', defaultText)
+      element.attr('data-placeholder', $interpolate(defaultText))
 
     disableWithMessage = ->
       empty = true
