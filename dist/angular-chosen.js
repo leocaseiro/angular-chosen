@@ -1,6 +1,6 @@
 /**
  * angular-chosen-localytics - Angular Chosen directive is an AngularJS Directive that brings the Chosen jQuery in a Angular way
- * @version v1.3.0
+ * @version v1.4.1
  * @link http://github.com/leocaseiro/angular-chosen
  * @license MIT
  */
@@ -45,7 +45,9 @@
           angular.forEach(attr, function(value, key) {
             if (indexOf.call(CHOSEN_OPTION_WHITELIST, key) >= 0) {
               return attr.$observe(key, function(value) {
-                options[snakeCase(key)] = String(element.attr(attr.$attr[key])).slice(0, 2) === '{{' ? value : scope.$eval(value);
+                var prefix;
+                prefix = String(element.attr(attr.$attr[key])).slice(0, 2);
+                options[snakeCase(key)] = prefix === '{{' ? value : scope.$eval(value);
                 return updateMessage();
               });
             }
