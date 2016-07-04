@@ -1,6 +1,6 @@
 /**
  * angular-chosen-localytics - Angular Chosen directive is an AngularJS Directive that brings the Chosen jQuery in a Angular way
- * @version v1.4.1
+ * @version v1.4.2
  * @link http://github.com/leocaseiro/angular-chosen
  * @license MIT
  */
@@ -80,7 +80,7 @@
             }
           };
           updateMessage = function() {
-            if (empty) {
+            if (chosen && empty) {
               element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true);
             } else {
               element.removeAttr('data-placeholder');

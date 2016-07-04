@@ -86,7 +86,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     updateMessage = ->
-      if empty
+      if chosen && empty
         element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true)
       else
         element.removeAttr('data-placeholder')
