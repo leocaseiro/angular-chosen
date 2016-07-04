@@ -43,9 +43,9 @@
     "vstene"
   ],
   "dependencies": {
-    "jquery": "^2.0.3",
-    "chosen-npm": "^1.4.2",
-    "angular": "^1.4.9"
+    "angular": "^1.5.7",
+    "chosen-js": "^1.6.1",
+    "jquery": "^3.0.0"
   },
   "bugs": {
     "url": "https://github.com/leocaseiro/angular-chosen/issues"

@@ -11,7 +11,7 @@ module.exports = function(config) {
 
     files: [
       'node_modules/jquery/dist/jquery.js',
-      'node_modules/chosen-npm/public/chosen.jquery.js',
+      'node_modules/chosen-js/chosen.jquery.js',
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'src/**/*.coffee',
