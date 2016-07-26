@@ -1,6 +1,6 @@
 /**
  * angular-chosen-localytics - Angular Chosen directive is an AngularJS Directive that brings the Chosen jQuery in a Angular way
- * @version v1.4.2
+ * @version v1.4.3
  * @link http://github.com/leocaseiro/angular-chosen
  * @license MIT
  */
@@ -67,8 +67,12 @@
           chosen = null;
           empty = false;
           initOrUpdate = function() {
-            var defaultText;
+            var defaultText, dropListDom;
             if (chosen) {
+              dropListDom = $(element.parent()).find("div.chosen-drop");
+              if (dropListDom && dropListDom.length > 0 && dropListDom.css("left").indexOf("0") >= 0) {
+                return;
+              }
               return element.trigger('chosen:updated');
             } else {
               $timeout(function() {
