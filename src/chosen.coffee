@@ -82,9 +82,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           return
         return element.trigger('chosen:updated')
       else
-        $timeout ->
-         chosen = element.chosen(options).data('chosen')
-         return
+        chosen = element.chosen(options).data('chosen')
         if angular.isObject(chosen)
           defaultText = chosen.default_text
 
