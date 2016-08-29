@@ -82,7 +82,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
           return
         return element.trigger('chosen:updated')
       else
-        $timeout ->
+        scope.$evalAsync ->
          chosen = element.chosen(options).data('chosen')
          return
         if angular.isObject(chosen)

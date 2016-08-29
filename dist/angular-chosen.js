@@ -75,7 +75,7 @@
               }
               return element.trigger('chosen:updated');
             } else {
-              $timeout(function() {
+              scope.$evalAsync(function() {
                 chosen = element.chosen(options).data('chosen');
               });
               if (angular.isObject(chosen)) {
