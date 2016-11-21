@@ -78,7 +78,7 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
       if chosen
         # Fix #56 Don't scroll to top when selecting multiple items with ctrl
         dropListDom = $(element.parent()).find("div.chosen-drop") #uses jQuery instead of Angular.
-        if dropListDom && dropListDom.length > 0 && dropListDom.css("left").indexOf("0") >= 0
+        if dropListDom && dropListDom.length > 0 && parseInt(dropListDom.css("left")) >= 0
           return
         return element.trigger('chosen:updated')
       else

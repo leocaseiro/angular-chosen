@@ -70,7 +70,7 @@
             var defaultText, dropListDom;
             if (chosen) {
               dropListDom = $(element.parent()).find("div.chosen-drop");
-              if (dropListDom && dropListDom.length > 0 && dropListDom.css("left").indexOf("0") >= 0) {
+              if (dropListDom && dropListDom.length > 0 && parseInt(dropListDom.css("left")) >= 0) {
                 return;
               }
               return element.trigger('chosen:updated');
