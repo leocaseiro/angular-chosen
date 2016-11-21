@@ -34,7 +34,7 @@ Via [cdn](https://cdnjs.com/libraries/angular-chosen-localytics)
     
 
 Or download zip file
-> [Download v1.4.0](https://github.com/leocaseiro/angular-chosen/archive/1.4.0.zip)
+> [Download v1.5.1](https://github.com/leocaseiro/angular-chosen/archive/1.5.1.zip)
 
 
 
