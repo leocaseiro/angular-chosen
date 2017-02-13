@@ -1,7 +1,18 @@
 angular.module('localytics.directives', [])
 
-angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeout) ->
+chosen = angular.module('localytics.directives')
 
+chosen.provider 'chosen', ->
+  options = {}
+  {
+    setOption: (newOpts) ->
+      angular.extend options, newOpts
+      return
+    $get: ->
+      options
+  }
+
+chosen.directive 'chosen', ['chosen', '$timeout', (config, $timeout) ->
   # coffeelint: disable=max_line_length
   # This is stolen from Angular...
   NG_OPTIONS_REGEXP =  /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/
@@ -48,7 +59,13 @@ angular.module('localytics.directives').directive 'chosen', ['$timeout', ($timeo
     element.addClass('localytics-chosen')
 
     # Take a hash of options from the chosen directive
-    options = scope.$eval(attr.chosen) or {}
+    directiveOptions = scope.$eval(attr.chosen) or {}
+
+    # Clone options from configProvider
+    options = angular.copy(config)
+
+    # Merge options from directive with options from configProvider
+    angular.extend(options, directiveOptions)
 
     # Options defined as attributes take precedence
     angular.forEach attr, (value, key) ->

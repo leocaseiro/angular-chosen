@@ -34,7 +34,7 @@ Via [cdn](https://cdnjs.com/libraries/angular-chosen-localytics)
     
 
 Or download zip file
-> [Download v1.5.1](https://github.com/leocaseiro/angular-chosen/archive/1.5.1.zip)
+> [Download v1.6.0](https://github.com/leocaseiro/angular-chosen/archive/1.6.0.zip)
 
 
 
@@ -47,6 +47,7 @@ If you use Yeoman or Bower install, you need to rename the `chosen.jquery.js` or
   * Supports usage of promises in `ngOptions`
   * Provides a 'loading' animation when 'ngOptions' collection is a promise backed by a remote source
   * Pass options to `Chosen` via attributes or by passing an object to the Chosen directive
+  * Provider with default values with `chosenProvider` ([read: Added config-provider](https://github.com/leocaseiro/angular-chosen/pull/231)) [since 1.6.0]
 
 # Usage
 
@@ -144,3 +145,15 @@ Image of select defined above in loading state:
 > Note: Assigning promises directly to scope is now deprecated in Angular 1.2+.  Assign the results of the promise to scope
 once the promise returns.  The loader animation will still work as long as the collection expression
 evaluates to `undefined` while your data is loading!
+
+
+### Default values with chosenProvider (thanks @zlodes) [since 1.6.0]
+```javascript
+angular.module('chosenExampleApp', ['localytics.directives'])
+    .config(['chosenProvider', function (chosenProvider) {
+        chosenProvider.setOption({
+            no_results_text: 'There is no results!',
+            placeholder_text_multiple: 'Choose one or more!'
+        });
+    }]);
+```
