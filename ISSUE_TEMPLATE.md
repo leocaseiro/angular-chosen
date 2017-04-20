@@ -1,4 +1,4 @@
->>> If you are going to be lazy asking me properly, I'll be lazy answering to you (@leocaseiro)
+> If you are going to be lazy asking me properly, I'll be lazy answering to you (@leocaseiro)
 
 ### Please make sure you can mark all the options, before open this Issue. I'll prioritise the issues that are consistent and completed. 
 
