@@ -1,0 +1,18 @@
+sudo: false
+language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - '6'
+before_install:
+  - npm i -g npm@^3.10.7
+before_script:
+  - npm prune
+script:
+  - npm run test
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
