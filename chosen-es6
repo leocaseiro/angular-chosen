@@ -1,0 +1,129 @@
+import 'imports?jQuery=jquery!drmonty-chosen';
+import angular from 'angular';
+
+const NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/;
+const CHOSEN_OPTION_WHITELIST = ['noResultsText', 'allowSingleDeselect', 'disableSearchThreshold', 'disableSearch', 'enableSplitWordSearch', 'inheritSelectClasses', 'maxSelectedOptions', 'placeholderTextMultiple', 'placeholderTextSingle', 'searchContains', 'singleBackstrokeDelete', 'displayDisabledOptions', 'displaySelectedOptions', 'width'];
+
+const __indexOf = [].indexOf || function(item) { for (let i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+
+export default class Chosen {
+  static $inject = ['$timeout'];
+
+  constructor($timeout) {
+    this.$timeout = $timeout;
+    this.chosen = null;
+    this.defaultText = null;
+    this.empty = false;
+    this.timer = null;
+  }
+
+  link($scope, element, attr, ngModel) {
+    this.$scope = $scope;
+    this.element = element;
+    this.attr = attr;
+    this.ngModel = ngModel;
+
+    this.options = $scope.$eval(attr.chosen) || {};
+    angular.forEach(attr, function forEach(value, key) {
+      if (__indexOf.call(CHOSEN_OPTION_WHITELIST, key) >= 0) {
+        const out = this.options[this.snakeCase(key)] = $scope.$eval(value);
+        return out;
+      }
+    });
+
+    if (ngModel) {
+      const origRender = ngModel.$render;
+      ngModel.$render = function $render() {
+        origRender();
+        return this.initOrUpdate();
+      };
+      if (attr.multiple) {
+        const viewWatch = function viewWatch() {
+          return ngModel.$viewValue;
+        };
+        $scope.$watch(viewWatch, ngModel.$render, true);
+      }
+    } else {
+      this.initOrUpdate();
+    }
+
+    attr.$observe('disabled', function $observe() {
+      return element.trigger('chosen:updated');
+    });
+
+    if (attr.ngOptions && ngModel) {
+      const match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
+      const valuesExpr = match[7];
+      console.log(valuesExpr);
+      $scope.$watchCollection(valuesExpr, function $watchCollection(newVal, oldVal) {
+        return this.timer = this.$timeout(function $timeout() {
+          if (angular.isUndefined(newVal)) {
+            return this.startLoading();
+          } else {
+            if (this.empty) {
+              this.removeEmptyMessage();
+            }
+            this.stopLoading();
+            if (this.isEmpty(newVal)) {
+              return this.disableWithMessage();
+            }
+          }
+        });
+      });
+      return $scope.$on('$destroy', function $on(event) {
+        if (typeof this.timer !== 'undefined' && this.timer !== null) {
+          return this.$timeout.cancel(this.timer);
+        }
+      });
+    }
+  }
+
+  snakeCase(input) {
+    return input.replace(/[A-Z]/g, function replace($1) {
+      return '_' + ($1.toLowerCase());
+    });
+  }
+
+  isEmpty(value) {
+    let key;
+    if (angular.isArray(value)) {
+      return value.length === 0;
+    } else if (angular.isObject(value)) {
+      for (key in value) {
+        if (value.hasOwnProperty(key)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  startLoading() {
+    return this.element.addClass('loading').attr('disabled', true).trigger('chosen:updated');
+  }
+
+  stopLoading() {
+    return this.element.removeClass('loading').attr('disabled', false).trigger('chosen:updated');
+  }
+
+  initOrUpdate() {
+    if (this.chosen) {
+      return this.element.trigger('chosen:updated');
+    }
+
+    this.chosen = this.element.chosen(this.options).data('chosen');
+    this.defaultText = this.chosen.default_text;
+    return this.defaultText;
+  }
+
+  removeEmptyMessage() {
+    this.empty = false;
+    return this.element.attr('data-placeholder', this.defaultText);
+  }
+
+  disableWithMessage() {
+    this.empty = true;
+    return this.element.attr('data-placeholder', this.chosen.results_none_found).attr('disabled', true).trigger('chosen:updated');
+  }
+}
