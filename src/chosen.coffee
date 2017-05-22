@@ -1,8 +1,8 @@
 angular.module('localytics.directives', [])
 
-chosen = angular.module('localytics.directives')
+chosenModule = angular.module('localytics.directives')
 
-chosen.provider 'chosen', ->
+chosenModule.provider 'chosen', ->
   options = {}
   {
     setOption: (newOpts) ->
@@ -12,7 +12,7 @@ chosen.provider 'chosen', ->
       options
   }
 
-chosen.directive 'chosen', ['chosen', '$timeout', (config, $timeout) ->
+chosenModule.directive 'chosen', ['chosen', '$timeout', (config, $timeout) ->
   # coffeelint: disable=max_line_length
   # This is stolen from Angular...
   NG_OPTIONS_REGEXP =  /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/
