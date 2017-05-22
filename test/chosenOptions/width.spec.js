@@ -6,6 +6,6 @@ describe('Chosen options: width', function () {
   });
 
   it('sets the dropdown width', function () {
-    expect(chosenSelectHelper.chosenContainer().attr('style')).toBe('width: 250;');
+    expect(chosenSelectHelper.chosenContainer().attr('style')).toContain('width: 250');
   });
 });
