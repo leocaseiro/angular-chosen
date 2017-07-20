@@ -11,6 +11,7 @@ describe('base functionality', function() {
     $scope.$digest();
     $timeout.flush();
     element.trigger('chosen:open.chosen'); // fills dropdown (triggers chosen:showing_dropdown when finished)
+    element.trigger('chosen:close.chosen');
   });
 
   it('should add chosen dropdown', function() {
