@@ -94,10 +94,10 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', (config, $timeout) ->
     initOrUpdate = ->
       if chosen
         # Fix #56 Don't scroll to top when selecting multiple items with ctrl
-        dropListDom = $(element.parent()).find("div.chosen-drop") #uses jQuery instead of Angular.
-        if dropListDom && dropListDom.length > 0 && parseInt(dropListDom.css("left")) >= 0
+        dropListDom = $(element.next('.chosen-with-drop')) #uses jQuery instead of Angular.
+        if dropListDom && dropListDom.length > 0
           return
-        return element.trigger('chosen:updated')
+        element.trigger('chosen:updated')
       else
         scope.$evalAsync ->
          chosen = element.chosen(options).data('chosen')

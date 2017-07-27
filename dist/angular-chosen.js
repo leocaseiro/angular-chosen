@@ -87,8 +87,8 @@
           initOrUpdate = function() {
             var defaultText, dropListDom;
             if (chosen) {
-              dropListDom = $(element.parent()).find("div.chosen-drop");
-              if (dropListDom && dropListDom.length > 0 && parseInt(dropListDom.css("left")) >= 0) {
+              dropListDom = $(element.next('.chosen-with-drop'));
+              if (dropListDom && dropListDom.length > 0) {
                 return;
               }
               return element.trigger('chosen:updated');
