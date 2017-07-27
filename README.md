@@ -1,8 +1,6 @@
 Angular Chosen Localytics [![Bower](https://img.shields.io/bower/v/angular-chosen-localytics.svg)](https://github.com/leocaseiro/angular-chosen) [![npm](https://img.shields.io/npm/v/angular-chosen-localytics.svg)](https://www.npmjs.com/package/angular-chosen-localytics)
 ==============
 
-> *WARNING: It seems since the version 1.4.3 the angular-chosen is not updating the chosen dinamically. If you have this issue, please install the 1.4.2 while I'm still investigating the issue.*
-
 AngularJS Chosen directive
 
 This directive brings the [Chosen](http://harvesthq.github.com/chosen/) jQuery plugin
@@ -30,13 +28,13 @@ Via npm
 
 Via [cdn](https://cdnjs.com/libraries/angular-chosen-localytics)
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chosen-localytics/1.7.0/angular-chosen.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chosen-localytics/1.8.0/angular-chosen.min.js"></script>
 ```
 
 
 
 Or download zip file
-> [Download v1.7.0](https://github.com/leocaseiro/angular-chosen/archive/1.7.0.zip)
+> [Download v1.8.0](https://github.com/leocaseiro/angular-chosen/archive/1.8.0.zip)
 
 
 
