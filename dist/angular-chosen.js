@@ -1,6 +1,6 @@
 /**
  * angular-chosen-localytics - Angular Chosen directive is an AngularJS Directive that brings the Chosen jQuery in a Angular way
- * @version v1.7.0
+ * @version v1.8.0
  * @link http://github.com/leocaseiro/angular-chosen
  * @license MIT
  */
