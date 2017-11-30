@@ -19,7 +19,7 @@ angular.module('chosenSelectHelper', [])
       }
 
       $compile(this.selectTag)($scope);
-      $scope.$digest();
+      $scope.$apply();
       $timeout.flush();
     },
 

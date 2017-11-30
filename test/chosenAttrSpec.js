@@ -11,13 +11,13 @@ describe('chosen attributes', function() {
 
     //inherit-select-classes = true
     element = $compile(select(true, customClass))($scope);
-    $scope.$digest();
+    $scope.$apply();
     chosenContainer = element.next();
     expect(chosenContainer.hasClass(customClass)).toBe(true);
 
     //inherit-select-classes = false
     element = $compile(select(false, customClass))($scope);
-    $scope.$digest();
+    $scope.$apply();
     chosenContainer = element.next();
     expect(chosenContainer.hasClass(customClass)).toBe(false);
   });
