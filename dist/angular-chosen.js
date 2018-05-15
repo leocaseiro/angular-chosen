@@ -133,10 +133,10 @@
             return element.trigger('chosen:updated');
           });
           if (attr.ngOptions && ngModel) {
+              var timer; //---- the "timer" should be visible to line 150
             match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
             valuesExpr = match[7];
             scope.$watchCollection(valuesExpr, function(newVal, oldVal) {
-              var timer;
               return timer = $timeout(function() {
                 if (angular.isUndefined(newVal)) {
                   return startLoading();
