@@ -26,7 +26,7 @@
   });
 
   chosenModule.directive('chosen', [
-    'chosen', '$timeout', function(config, $timeout) {
+    'chosen', '$timeout', '$parse', function(config, $timeout, $parse) {
       var CHOSEN_OPTION_WHITELIST, NG_OPTIONS_REGEXP, isEmpty, snakeCase;
       NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
       CHOSEN_OPTION_WHITELIST = ['persistentCreateOption', 'createOptionText', 'createOption', 'skipNoResults', 'noResultsText', 'allowSingleDeselect', 'disableSearchThreshold', 'disableSearch', 'enableSplitWordSearch', 'inheritSelectClasses', 'maxSelectedOptions', 'placeholderTextMultiple', 'placeholderTextSingle', 'searchContains', 'singleBackstrokeDelete', 'displayDisabledOptions', 'displaySelectedOptions', 'width', 'includeGroupLabelInSelected', 'maxShownResults'];
@@ -50,13 +50,18 @@
       };
       return {
         restrict: 'A',
-        require: '?ngModel',
+        require: ['select', '?ngModel'],
         priority: 1,
-        link: function(scope, element, attr, ngModel) {
-          var chosen, directiveOptions, empty, initOrUpdate, match, options, origRender, startLoading, stopLoading, updateMessage, valuesExpr, viewWatch;
+        link: function(scope, element, attr, ctrls) {
+          var $render, chosen, directiveOptions, empty, init, match, ngModel, ngSelect, options, startLoading, stopLoading, trackBy, updateMessage, valuesExpr, viewWatch;
           scope.disabledValuesHistory = scope.disabledValuesHistory ? scope.disabledValuesHistory : [];
           element = $(element);
           element.addClass('localytics-chosen');
+          ngSelect = ctrls[0];
+          ngModel = ctrls[1];
+          match = attr.ngOptions && attr.ngOptions.match(NG_OPTIONS_REGEXP);
+          valuesExpr = match && $parse(match[7]);
+          trackBy = match && match[8];
           directiveOptions = scope.$eval(attr.chosen) || {};
           options = angular.copy(config);
           angular.extend(options, directiveOptions);
@@ -84,22 +89,10 @@
           };
           chosen = null;
           empty = false;
-          initOrUpdate = function() {
-            var defaultText, dropListDom;
-            if (chosen) {
-              dropListDom = $(element.next('.chosen-with-drop'));
-              if (dropListDom && dropListDom.length > 0) {
-                return;
-              }
-              return element.trigger('chosen:updated');
-            } else {
-              scope.$evalAsync(function() {
-                chosen = element.chosen(options).data('chosen');
-              });
-              if (angular.isObject(chosen)) {
-                return defaultText = chosen.default_text;
-              }
-            }
+          init = function() {
+            return scope.$evalAsync(function() {
+              return chosen = element.chosen(options).data('chosen');
+            });
           };
           updateMessage = function() {
             if (chosen && empty) {
@@ -109,11 +102,23 @@
             }
             return element.trigger('chosen:updated');
           };
+          init();
           if (ngModel) {
-            origRender = ngModel.$render;
+            $render = ngModel.$render;
             ngModel.$render = function() {
-              origRender();
-              return initOrUpdate();
+              var isNotPrimitive, nextValue, previousValue, valueChanged;
+              try {
+                previousValue = ngSelect.readValue();
+              } catch (error) {}
+              $render();
+              try {
+                nextValue = ngSelect.readValue();
+              } catch (error) {}
+              isNotPrimitive = trackBy || attr.multiple;
+              valueChanged = isNotPrimitive ? !angular.equals(previousValue, nextValue) : previousValue !== nextValue;
+              if (valueChanged) {
+                return element.trigger('chosen:updated');
+              }
             };
             element.on('chosen:hiding_dropdown', function() {
               return scope.$apply(function() {
@@ -126,15 +131,11 @@
               };
               scope.$watch(viewWatch, ngModel.$render, true);
             }
-          } else {
-            initOrUpdate();
           }
           attr.$observe('disabled', function() {
             return element.trigger('chosen:updated');
           });
           if (attr.ngOptions && ngModel) {
-            match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
-            valuesExpr = match[7];
             scope.$watchCollection(valuesExpr, function(newVal, oldVal) {
               var timer;
               return timer = $timeout(function() {
