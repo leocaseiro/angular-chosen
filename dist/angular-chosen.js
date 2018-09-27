@@ -53,7 +53,7 @@
         require: ['select', '?ngModel'],
         priority: 1,
         link: function(scope, element, attr, ctrls) {
-          var $render, chosen, directiveOptions, empty, init, match, ngModel, ngSelect, options, startLoading, stopLoading, trackBy, updateMessage, valuesExpr, viewWatch;
+          var $render, chosen, directiveOptions, empty, init, match, ngModel, ngSelect, options, startLoading, stopLoading, timer, trackBy, updateMessage, valuesExpr, viewWatch;
           scope.disabledValuesHistory = scope.disabledValuesHistory ? scope.disabledValuesHistory : [];
           element = $(element);
           element.addClass('localytics-chosen');
@@ -136,8 +136,8 @@
             return element.trigger('chosen:updated');
           });
           if (attr.ngOptions && ngModel) {
+            timer = null;
             scope.$watchCollection(valuesExpr, function(newVal, oldVal) {
-              var timer;
               return timer = $timeout(function() {
                 if (angular.isUndefined(newVal)) {
                   return startLoading();
@@ -149,7 +149,7 @@
               });
             });
             return scope.$on('$destroy', function(event) {
-              if (typeof timer !== "undefined" && timer !== null) {
+              if (timer != null) {
                 return $timeout.cancel(timer);
               }
             });

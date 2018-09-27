@@ -145,6 +145,7 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
     # Watch the collection in ngOptions and update chosen when it changes.  This works with promises!
     # ngOptions doesn't do anything unless there is an ngModel, so neither do we.
     if attr.ngOptions and ngModel
+      timer = null
       scope.$watchCollection valuesExpr, (newVal, oldVal) ->
         # Defer execution until DOM is loaded
         timer = $timeout(->
