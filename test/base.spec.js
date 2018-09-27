@@ -8,7 +8,7 @@ describe('base functionality', function() {
 
     // Compile a piece of HTML containing the directive
     element = $compile('<select chosen ng-options="lang for lang in languages" ng-model="currentLanguage"><option></option></select>')($scope);
-    $scope.$digest();
+    $scope.$apply();
     $timeout.flush();
     element.trigger('chosen:open.chosen'); // fills dropdown (triggers chosen:showing_dropdown when finished)
     element.trigger('chosen:close.chosen');
@@ -33,7 +33,7 @@ describe('base functionality', function() {
     expect(chosenSelected.text()).toBe('german');
 
     $scope.currentLanguage = 'english';
-    $scope.$digest();
+    $scope.$apply();
 
     expect(chosenSelected.text()).toBe('english');
   });
@@ -43,7 +43,7 @@ describe('base functionality', function() {
 
     // Compile a piece of HTML containing the directive
     element = $compile('<select chosen ng-options="lang for lang in languages" ng-model="currentLanguage" ng-change="changed=true"><option></option></select>')($scope);
-    $scope.$digest();
+    $scope.$apply();
     $timeout.flush();
 
     element.trigger('chosen:open.chosen');
@@ -65,7 +65,7 @@ describe('base functionality', function() {
 
     // Compile a piece of HTML containing the directive
     element = $compile('<select chosen ng-options="lang for lang in languages" ng-model="currentLanguage" ng-disabled="disabled"><option></option></select>')($scope);
-    $scope.$digest();
+    $scope.$apply();
     $timeout.flush();
 
     var chosenContainer = element.next();
@@ -73,7 +73,7 @@ describe('base functionality', function() {
     expect(chosenContainer.hasClass('chosen-disabled')).toBe(true);
 
     $scope.disabled = false;
-    $scope.$digest();
+    $scope.$apply();
 
     expect(chosenContainer.hasClass('chosen-disabled')).toBe(false);
   });

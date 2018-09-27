@@ -11,7 +11,7 @@ describe('form validations', function() {
     element = form.find('select');
     ngModel = $scope.form.language;
 
-    $scope.$digest();
+    $scope.$apply();
   });
 
   it('should work with required form validation', function() {
@@ -19,7 +19,7 @@ describe('form validations', function() {
     expect(ngModel.$error.required).toBe(true);
 
     $scope.currentLanguage = 'german';
-    $scope.$digest();
+    $scope.$apply();
 
     expect(ngModel.$valid).toBe(true);
   });
@@ -28,10 +28,10 @@ describe('form validations', function() {
     expect(ngModel.$touched).toBe(false);
 
     element.trigger('chosen:open.chosen');
-    $scope.$digest();
+    $scope.$apply();
 
     element.trigger('chosen:hiding_dropdown');
-    $scope.$digest();
+    $scope.$apply();
 
     expect(ngModel.$touched).toBe(true);
   });

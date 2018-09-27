@@ -13,7 +13,7 @@ describe('#179 inherit-select-classes inside ng-if', function () {
 
     //inherit-select-classes = true
     element = $compile(select(true, customClass))($scope);
-    $scope.$digest();
+    $scope.$apply();
     chosenContainer = element.find('.localytics-directive').next();
     console.log('chosenContainer', element);
     $timeout(function() {

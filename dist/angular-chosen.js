@@ -121,7 +121,7 @@
               }
             };
             element.on('chosen:hiding_dropdown', function() {
-              return scope.$apply(function() {
+              return scope.$applyAsync(function() {
                 return ngModel.$setTouched();
               });
             });
