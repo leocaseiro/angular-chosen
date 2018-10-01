@@ -98,9 +98,10 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
     chosen = null
     empty = false
 
-    init = ->
-      scope.$evalAsync ->
-        chosen = element.chosen(options).data('chosen')
+    initIfNot = ->
+      if !chosen
+        scope.$evalAsync ->
+          if !chosen then chosen = element.chosen(options).data('chosen')
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
     updateMessage = ->
@@ -110,12 +111,12 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
         element.removeAttr('data-placeholder')
       element.trigger('chosen:updated')
 
-    init()
-
     # Watch the underlying ngModel for updates and trigger an update when they occur.
     if ngModel
       $render = ngModel.$render
       ngModel.$render = ->
+        initIfNot()
+
         # We need to try and detect if the select value was changed from outside of chosen
         try previousValue = ngSelect.readValue()
         $render()

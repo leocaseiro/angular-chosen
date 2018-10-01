@@ -53,7 +53,7 @@
         require: ['select', '?ngModel'],
         priority: 1,
         link: function(scope, element, attr, ctrls) {
-          var $render, chosen, directiveOptions, empty, init, match, ngModel, ngSelect, options, startLoading, stopLoading, timer, trackBy, updateMessage, valuesExpr, viewWatch;
+          var $render, chosen, directiveOptions, empty, initIfNot, match, ngModel, ngSelect, options, startLoading, stopLoading, timer, trackBy, updateMessage, valuesExpr, viewWatch;
           scope.disabledValuesHistory = scope.disabledValuesHistory ? scope.disabledValuesHistory : [];
           element = $(element);
           element.addClass('localytics-chosen');
@@ -89,10 +89,14 @@
           };
           chosen = null;
           empty = false;
-          init = function() {
-            return scope.$evalAsync(function() {
-              return chosen = element.chosen(options).data('chosen');
-            });
+          initIfNot = function() {
+            if (!chosen) {
+              return scope.$evalAsync(function() {
+                if (!chosen) {
+                  return chosen = element.chosen(options).data('chosen');
+                }
+              });
+            }
           };
           updateMessage = function() {
             if (chosen && empty) {
@@ -102,11 +106,11 @@
             }
             return element.trigger('chosen:updated');
           };
-          init();
           if (ngModel) {
             $render = ngModel.$render;
             ngModel.$render = function() {
               var isNotPrimitive, nextValue, previousValue, valueChanged;
+              initIfNot();
               try {
                 previousValue = ngSelect.readValue();
               } catch (error) {}
