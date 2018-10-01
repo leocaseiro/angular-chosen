@@ -1,5 +1,5 @@
 describe('#179 inherit-select-classes inside ng-if', function () {
-  
+
   it('passes classes from the select tag to the chosen container inside ng-if', function () {
     var element;
     var customClass = 'customclass';
@@ -14,10 +14,8 @@ describe('#179 inherit-select-classes inside ng-if', function () {
     //inherit-select-classes = true
     element = $compile(select(true, customClass))($scope);
     $scope.$apply();
-    chosenContainer = element.find('.localytics-directive').next();
-    console.log('chosenContainer', element);
-    $timeout(function() {
-        expect(chosenContainer.hasClass(customClass)).toBe(true);
-    });
+
+    chosenContainer = element.find('select').next();
+    expect(chosenContainer.hasClass(customClass)).toBe(true);
   });
 });
