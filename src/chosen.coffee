@@ -83,7 +83,7 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
         attr.$observe key, (value) ->
           prefix = String(element.attr(attr.$attr[key])).slice(0, 2)
           options[snakeCase(key)] = if prefix is '{{' then value else scope.$eval(value)
-          updateMessage()
+          disableIfEmpty()
 
     startLoading = -> element.addClass('loading').attr('disabled', true).trigger('chosen:updated')
 
@@ -98,17 +98,16 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
     chosen = null
     empty = false
 
+    # async initialize chosen if it's not initialized yet
     initIfNot = ->
       if !chosen
         scope.$evalAsync ->
           if !chosen then chosen = element.chosen(options).data('chosen')
 
     # Use Chosen's placeholder or no results found text depending on whether there are options available
-    updateMessage = ->
+    disableIfEmpty = ->
       if chosen && empty
-        element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true)
-      else
-        element.removeAttr('data-placeholder')
+        element.attr('disabled', true)
       element.trigger('chosen:updated')
 
     # Watch the underlying ngModel for updates and trigger an update when they occur.
@@ -155,7 +154,7 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
           else
             empty = isEmpty(newVal)
             stopLoading()
-            updateMessage()
+            disableIfEmpty()
         )
 
       scope.$on '$destroy', (event) ->
