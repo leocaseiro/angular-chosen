@@ -53,7 +53,7 @@
         require: ['select', '?ngModel'],
         priority: 1,
         link: function(scope, element, attr, ctrls) {
-          var $render, chosen, directiveOptions, empty, initIfNot, match, ngModel, ngSelect, options, startLoading, stopLoading, timer, trackBy, updateMessage, valuesExpr, viewWatch;
+          var $render, chosen, directiveOptions, disableIfEmpty, empty, initIfNot, match, ngModel, ngSelect, options, startLoading, stopLoading, timer, trackBy, valuesExpr, viewWatch;
           scope.disabledValuesHistory = scope.disabledValuesHistory ? scope.disabledValuesHistory : [];
           element = $(element);
           element.addClass('localytics-chosen');
@@ -71,7 +71,7 @@
                 var prefix;
                 prefix = String(element.attr(attr.$attr[key])).slice(0, 2);
                 options[snakeCase(key)] = prefix === '{{' ? value : scope.$eval(value);
-                return updateMessage();
+                return disableIfEmpty();
               });
             }
           });
@@ -98,18 +98,16 @@
               });
             }
           };
-          updateMessage = function() {
+          disableIfEmpty = function() {
             if (chosen && empty) {
-              element.attr('data-placeholder', chosen.results_none_found).attr('disabled', true);
-            } else {
-              element.removeAttr('data-placeholder');
+              element.attr('disabled', true);
             }
             return element.trigger('chosen:updated');
           };
           if (ngModel) {
             $render = ngModel.$render;
             ngModel.$render = function() {
-              var isNotPrimitive, nextValue, previousValue, valueChanged;
+              var isPrimitive, nextValue, previousValue, valueChanged;
               initIfNot();
               try {
                 previousValue = ngSelect.readValue();
@@ -118,8 +116,8 @@
               try {
                 nextValue = ngSelect.readValue();
               } catch (error) {}
-              isNotPrimitive = trackBy || attr.multiple;
-              valueChanged = isNotPrimitive ? !angular.equals(previousValue, nextValue) : previousValue !== nextValue;
+              isPrimitive = !trackBy && !attr.multiple;
+              valueChanged = isPrimitive ? previousValue !== nextValue : !angular.equals(previousValue, nextValue);
               if (valueChanged) {
                 return element.trigger('chosen:updated');
               }
@@ -148,7 +146,7 @@
                 } else {
                   empty = isEmpty(newVal);
                   stopLoading();
-                  return updateMessage();
+                  return disableIfEmpty();
                 }
               });
             });

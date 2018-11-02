@@ -121,10 +121,10 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
         $render()
         try nextValue = ngSelect.readValue()
 
-        isNotPrimitive = trackBy || attr.multiple
-        valueChanged = if isNotPrimitive
-        then !angular.equals(previousValue, nextValue)
-        else previousValue != nextValue
+        isPrimitive = !trackBy && !attr.multiple
+        valueChanged = if isPrimitive
+        then previousValue != nextValue
+        else !angular.equals(previousValue, nextValue)
 
         # If it was changed, then we trigger a chosen re-render
         if (valueChanged)
