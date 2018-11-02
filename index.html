@@ -218,7 +218,7 @@ into AngularJS with ngModel and ngOptions integration.</p>
   <tr><td><code>placeholder-text-single</code></td><td>&ldquo;Select an Option&rdquo;</td><td>The text to be displayed as a placeholder when no options are selected for a single select.</td></tr>
 </table>
 <pre class="highlight html"><code><span class="nt">&lt;select</span> <span class="na">chosen</span>
-        <span class="na">data-placeholder=</span><span class="s">"Pick one of these"</span>
+        <span class="na">placeholder-text-single=</span><span class="s">"Pick one of these"</span>
         <span class="na">disable-search=</span><span class="s">"true"</span>
         <span class="na">allow-single-deselect=</span><span class="s">"true"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;&lt;/option&gt;</span>
@@ -286,7 +286,7 @@ into AngularJS with ngModel and ngOptions integration.</p>
 <h5 id="index-html">index.html</h5>
 <pre class="highlight html"><code><span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">"BeerCtrl"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;select</span> <span class="na">chosen</span>
-          <span class="na">data-placeholder=</span><span class="s">"Choose a beer"</span>
+          <span class="na">placeholder-text-single=</span><span class="s">"Choose a beer"</span>
           <span class="na">no-results-text=</span><span class="s">"'Could not find any beers :('"</span>
           <span class="na">ng-model=</span><span class="s">"beer"</span>
           <span class="na">ng-options=</span><span class="s">"b for b in beers"</span><span class="nt">&gt;</span>
@@ -314,7 +314,7 @@ evaluates to `undefined` while your data is loading!</aside>
 <h5 id="index-html">index.html</h5>
 <pre class="highlight html"><code><span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">"PostCtrl"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;select</span> <span class="na">chosen</span>
-          <span class="na">data-placeholder=</span><span class="s">"Choose a post"</span>
+          <span class="na">placeholder-text-single=</span><span class="s">"Choose a post"</span>
           <span class="na">no-results-text=</span><span class="s">"'Could not find any post :('"</span>
           <span class="na">ng-model=</span><span class="s">"post"</span>
           <span class="na">ng-options=</span><span class="s">"p for p in posts"</span><span class="nt">&gt;</span>
