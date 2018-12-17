@@ -49,7 +49,8 @@
   "dependencies": {
     "angular": "^1.5.7",
     "chosen-js": "^1.6.1",
-    "jquery": "^3.0.0"
+    "jquery": "^3.0.0",
+    "natives": "^1.1.6"
   },
   "bugs": {
     "url": "https://github.com/leocaseiro/angular-chosen/issues"

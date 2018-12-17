@@ -150,12 +150,13 @@
                 }
               });
             });
-            return scope.$on('$destroy', function(event) {
+            scope.$on('$destroy', function(event) {
               if (timer != null) {
                 return $timeout.cancel(timer);
               }
             });
           }
+          return initIfNot();
         }
       };
     }
