@@ -159,4 +159,7 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
 
       scope.$on '$destroy', (event) ->
         $timeout.cancel timer if timer?
+
+    # Init on other conditions (for example no ng directives)
+    initIfNot()
 ]
