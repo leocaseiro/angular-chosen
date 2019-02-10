@@ -1,6 +1,12 @@
 describe('base functionality', function() {
-
   var element;
+
+  it('should work without ngModel', function() {
+    element = $compile('<select chosen><option value="one">One</option></select>')($scope);
+    $scope.$apply();
+    var chosenSelected = element.next().find('.chosen-single span');
+    expect(chosenSelected.length).toBe(1)
+  })
 
   beforeEach(function() {
     $scope.currentLanguage = 'german';
@@ -77,8 +83,6 @@ describe('base functionality', function() {
 
     expect(chosenContainer.hasClass('chosen-disabled')).toBe(false);
   });
-
-
 });
 
 

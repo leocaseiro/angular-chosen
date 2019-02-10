@@ -99,7 +99,7 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
     empty = false
 
     # async initialize chosen if it's not initialized yet
-    initIfNot = ->
+    initIfNotInitialized = ->
       if !chosen
         scope.$evalAsync ->
           if !chosen then chosen = element.chosen(options).data('chosen')
@@ -114,7 +114,7 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
     if ngModel
       $render = ngModel.$render
       ngModel.$render = ->
-        initIfNot()
+        initIfNotInitialized()
 
         # We need to try and detect if the select value was changed from outside of chosen
         try previousValue = ngSelect.readValue()
@@ -138,6 +138,8 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
       if attr.multiple
         viewWatch = -> ngModel.$viewValue
         scope.$watch viewWatch, ngModel.$render, true
+    else
+      initIfNotInitialized()
 
     # Watch the disabled attribute (could be set by ngDisabled)
     attr.$observe 'disabled', -> element.trigger('chosen:updated')
