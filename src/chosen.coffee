@@ -19,27 +19,37 @@ chosenModule.directive 'chosen', ['chosen', '$timeout', '$parse', (config, $time
   # coffeelint: enable=max_line_length
 
   # Whitelist of options that will be parsed from the element's attributes and passed into Chosen
+  #
+  # Can be updated by running the following script on the options page
+  # https://harvesthq.github.io/chosen/options.html
+  #
+  # Array.from(
+  #   document.querySelectorAll('table:first-of-type tr td:first-of-type')
+  # )
+  # .map(node => node.textContent)
+  # .map(option => option.replace(/_(\w)/g, (_, letter) => letter.toUpperCase()))
+  #
   CHOSEN_OPTION_WHITELIST = [
-    'persistentCreateOption'
-    'createOptionText'
-    'createOption'
-    'skipNoResults'
-    'noResultsText'
     'allowSingleDeselect'
-    'disableSearchThreshold'
     'disableSearch'
+    'disableSearchThreshold'
     'enableSplitWordSearch'
     'inheritSelectClasses'
     'maxSelectedOptions'
+    'noResultsText'
     'placeholderTextMultiple'
     'placeholderTextSingle'
     'searchContains'
+    'groupSearch'
     'singleBackstrokeDelete'
+    'width'
     'displayDisabledOptions'
     'displaySelectedOptions'
-    'width'
     'includeGroupLabelInSelected'
     'maxShownResults'
+    'caseSensitiveSearch'
+    'hideResultsOnSelect'
+    'rtl'
   ]
 
   snakeCase = (input) -> input.replace /[A-Z]/g, ($1) -> "_#{$1.toLowerCase()}"
