@@ -7,7 +7,7 @@ This directive brings the [Chosen](http://harvesthq.github.com/chosen/) jQuery p
 into AngularJS with ngModel and ngOptions integration.
 
 To use, include `localytics.directives` as a dependency in your Angular module.  You can now
-use the `chosen` directive as an attribute on any select element.  Angular version 1.3+ is required, but recomended 1.4.9+.
+use the `chosen` directive as an attribute on any select element.  Angular version 1.3+ is required, but recommended 1.4.9+.
 
 # [Full Documentation with Examples](http://leocaseiro.github.io/angular-chosen/)
 * Documentation on [Github Page](http://leocaseiro.github.io/angular-chosen/)
